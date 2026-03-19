@@ -1,1 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Restaurant Signup</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: black;
+      color: white;
+      text-align: center;
+    }
 
+    .container {
+      max-width: 500px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+    }
+
+    p {
+      color: #ccc;
+      margin-bottom: 30px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px;
+      margin-bottom: 15px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .back {
+      margin-top: 20px;
+      display: inline-block;
+      color: #aaa;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Start Getting Direct Orders</h1>
+    <p>Turn your food videos into real orders — without paying commissions.</p>
+
+    <form action="https://formspree.io/f/PUT-YOUR-ID-HERE" method="POST">
+
+      <input type="text" name="restaurant" placeholder="Restaurant Name" required>
+      <input type="text" name="contact" placeholder="Contact Name" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="email" name="email" placeholder="Email" required>
+
+      <select name="pos">
+        <option value="">Current POS System</option>
+        <option>Toast</option>
+        <option>Square</option>
+        <option>Clover</option>
+        <option>Other</option>
+      </select>
+
+      <select name="delivery">
+        <option value="">Do you use DoorDash/Uber Eats?</option>
+        <option>Yes</option>
+        <option>No</option>
+      </select>
+
+      <button type="submit">Get Started</button>
+    </form>
+
+    <a href="index.html" class="back">← Back</a>
+  </div>
+</body>
+</html>
