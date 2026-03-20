@@ -2,36 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Restaurant Signup</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurant Inquiry</title>
+
   <style>
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: black;
-      color: white;
+      background: #000;
+      color: #fff;
       text-align: center;
     }
 
     .container {
       max-width: 500px;
       margin: auto;
-      padding: 30px 20px;
+      padding: 40px 20px;
     }
 
     h1 {
-      margin-bottom: 10px;
+      font-size: 32px;
     }
 
     p {
-      color: #ccc;
-      margin-bottom: 30px;
+      color: #aaa;
     }
 
     input, select {
       width: 100%;
-      padding: 14px;
-      margin-bottom: 15px;
+      padding: 15px;
+      margin: 10px 0;
       border-radius: 8px;
       border: none;
       font-size: 16px;
@@ -39,54 +39,59 @@
 
     button {
       width: 100%;
-      padding: 16px;
-      background: red;
-      color: white;
+      padding: 18px;
+      background: #e50914;
+      color: #fff;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 18px;
       font-weight: bold;
-      cursor: pointer;
+      margin-top: 20px;
     }
 
     .back {
       margin-top: 20px;
-      display: inline-block;
       color: #aaa;
-      text-decoration: none;
+      display: block;
     }
   </style>
 </head>
+
 <body>
-  <div class="container">
-    <h1>Start Getting Direct Orders</h1>
-    <p>Turn your food videos into real orders — without paying commissions.</p>
 
-    <form action="https://formspree.io/f/mdawbbag" method="POST">
+<div class="container">
 
-      <input type="text" name="restaurant" placeholder="Restaurant Name" required>
-      <input type="text" name="contact" placeholder="Contact Name" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <input type="email" name="email" placeholder="Email" required>
+  <h1>Start Getting Direct Orders</h1>
+  <p>Turn your food videos into real orders — without paying commissions.</p>
 
-      <select name="pos">
-        <option value="">Current POS System</option>
-        <option>Toast</option>
-        <option>Square</option>
-        <option>Clover</option>
-        <option>Other</option>
-      </select>
+  <form action="https://formspree.io/f/mdawbbag" method="POST">
 
-      <select name="delivery">
-        <option value="">Do you use DoorDash/Uber Eats?</option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
+    <input type="text" name="restaurant" placeholder="Restaurant Name" required>
+    <input type="text" name="contact" placeholder="Contact Name" required>
+    <input type="tel" name="phone" placeholder="Phone Number" required>
+    <input type="email" name="email" placeholder="Email" required>
 
-      <button type="submit">Get Started</button>
-    </form>
+    <select name="pos" required>
+      <option value="">Current POS System</option>
+      <option>Toast</option>
+      <option>Square</option>
+      <option>Clover</option>
+      <option>Other</option>
+    </select>
 
-    <a href="index.html" class="back">← Back</a>
-  </div>
+    <select name="delivery" required>
+      <option value="">Do you use DoorDash/Uber Eats?</option>
+      <option>Yes</option>
+      <option>No</option>
+    </select>
+
+    <button type="submit">Get Started</button>
+
+  </form>
+
+  <a href="index.html" class="back">← Back</a>
+
+</div>
+
 </body>
 </html>
