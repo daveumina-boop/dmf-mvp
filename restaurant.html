@@ -1,65 +1,279 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DeliverMeFood 2.0</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<style>
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #0b0b0b;
-    color: #ffffff;
-    text-align: center;
-}
+  <title>Get Featured — DMF</title>
+  <meta property="og:title" content="Get Featured — DMF" />
+  <meta property="og:description" content="Built for restaurants. Designed for customers. Get featured or get early access." />
+  <meta property="og:image" content="dmf-logo.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourwebsite.com/restaurant.html" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-.container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
 
-h2 {
-    margin-top: 40px;
-    font-size: 24px;
-}
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 40px 20px 70px;
+    }
 
-p {
-    color: #cccccc;
-    line-height: 1.5;
-}
+    .logo {
+      width: 180px;
+      margin: 0 auto 20px;
+      display: block;
+      filter: drop-shadow(0 0 16px rgba(229, 25, 25, 0.35));
+    }
 
-.highlight {
-    color: #e50914;
-}
+    h1 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin: 10px 0 12px;
+      letter-spacing: -0.03em;
+    }
 
-button {
-    background: #e50914;
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    margin: 10px 5px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-}
+    h2 {
+      font-size: 30px;
+      margin: 0 0 12px;
+      letter-spacing: -0.02em;
+    }
 
-button.secondary {
-    background: transparent;
-    border: 1px solid #e50914;
-}
+    p {
+      color: #cfcfcf;
+      line-height: 1.6;
+      margin: 0 0 16px;
+      font-size: 18px;
+    }
 
-.section {
-    margin-top: 50px;
-}
+    .small {
+      color: #8d8d8d;
+      font-size: 14px;
+    }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 8
+    .top-copy {
+      max-width: 660px;
+      margin: 0 auto 36px;
+    }
+
+    .section-label {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #e01919;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .card {
+      background: #0f0f0f;
+      border: 1px solid #1f1f1f;
+      border-radius: 20px;
+      padding: 28px 22px;
+      margin: 0 auto 24px;
+      max-width: 680px;
+      text-align: left;
+      box-shadow: 0 0 0 1px rgba(255,255,255,0.02);
+    }
+
+    .card h2,
+    .card p,
+    .card .small {
+      text-align: left;
+    }
+
+    .divider-line {
+      margin: 40px auto 28px;
+      width: 90px;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #e01919, transparent);
+      border: 0;
+    }
+
+    .dual-line {
+      margin: 0 0 22px;
+      color: #b8b8b8;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    form {
+      margin-top: 18px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 16px;
+      margin: 0 0 12px;
+      border-radius: 12px;
+      border: 1px solid #2a2a2a;
+      background: #151515;
+      color: #fff;
+      font-size: 16px;
+      outline: none;
+    }
+
+    input::placeholder {
+      color: #7c7c7c;
+    }
+
+    input:focus {
+      border-color: #e01919;
+    }
+
+    .btn {
+      display: inline-block;
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 12px;
+      border: none;
+      background: #e01919;
+      color: #fff;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .btn:hover {
+      background: #f02222;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 26px;
+      color: #9b9b9b;
+      text-decoration: none;
+      font-size: 15px;
+    }
+
+    .back-link:hover {
+      color: #fff;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 16px 50px;
+      }
+
+      .logo {
+        width: 145px;
+        margin-bottom: 16px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .card {
+        padding: 22px 16px;
+        border-radius: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <img src="dmf-logo.jpg" alt="DMF Logo" class="logo" />
+
+    <div class="top-copy">
+      <div class="section-label">DMF — The DeliverMeFood App</div>
+      <h1>Built for restaurants. Designed for customers.</h1>
+      <p>
+        A new way to discover food, connect with restaurants, and turn attention into direct orders.
+      </p>
+      <p class="small">Built in the delivery industry — since 1996.</p>
+    </div>
+
+    <p class="dual-line">A gathering place where restaurants meet their customers.</p>
+
+    <div class="card">
+      <div class="section-label">For Restaurants</div>
+      <h2>Get Featured</h2>
+      <p>
+        We help restaurants generate direct orders through video, visibility, and customer ownership.
+      </p>
+      <p>
+        No commissions. No middleman. Just a better way to be discovered.
+      </p>
+
+      <form action="https://formspree.io/f/mdawbbag" method="POST" onsubmit="return checkBot(this)">
+        <input type="hidden" name="lead_type" value="restaurant" />
+
+        <input type="text" name="restaurant_name" placeholder="Restaurant Name" required />
+        <input type="text" name="contact_name" placeholder="Contact Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="text" name="pos_system" placeholder="POS System (Toast, Square, Clover)" />
+
+        <!-- Honeypot -->
+        <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <button type="submit" class="btn">Get Featured</button>
+      </form>
+    </div>
+
+    <hr class="divider-line" />
+
+    <div class="card">
+      <div class="section-label">For Customers</div>
+      <h2>Get Early Access</h2>
+      <p>
+        Discover local restaurants, watch food videos, and order directly — no middleman.
+      </p>
+      <p>
+        Be one of the first to experience a new way to order food.
+      </p>
+
+      <form action="https://formspree.io/f/mdawbbag" method="POST" onsubmit="return checkBot(this)">
+        <input type="hidden" name="lead_type" value="customer" />
+
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+
+        <!-- Honeypot -->
+        <input type="text" name="company" style="display:none" tabindex="-1" autocomplete="off" />
+
+        <button type="submit" class="btn">Join Early Access</button>
+      </form>
+
+      <p class="small" style="margin-top:14px;">Limited to the first 1,000 users.</p>
+    </div>
+
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+  <script>
+    let startTime = Date.now();
+
+    function checkBot(form) {
+      let timeTaken = (Date.now() - startTime) / 1000;
+
+      if (form.company.value !== "") return false;
+      if (timeTaken < 3) return false;
+
+      return true;
+    }
+  </script>
+</body>
+</html>
