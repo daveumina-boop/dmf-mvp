@@ -1,226 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- 🔥 TITLE + PREVIEW FIX -->
-<title>DMF — The DeliverMeFood App</title>
+  <title>DMF — The DeliverMeFood App</title>
+  <meta property="og:title" content="DMF — The DeliverMeFood App" />
+  <meta property="og:description" content="Turn videos into direct orders. Watch. Tap. Order." />
+  <meta property="og:image" content="phone-mockup.png" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://yourwebsite.com" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-<meta property="og:title" content="DMF — The DeliverMeFood App">
-<meta property="og:description" content="A new way to discover food. Watch. Tap. Order. No middleman.">
-<meta property="og:image" content="dmf-logo.jpg">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://yourwebsite.com">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<style>
-body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #0b0b0b;
-    color: #ffffff;
-    text-align: center;
-    animation: fadeIn 1s ease;
-}
-
-.container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-}
-
-h1 {
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-h2 {
-    margin-top: 40px;
-    font-size: 24px;
-}
-
-p {
-    color: #cccccc;
-    line-height: 1.5;
-}
-
-.highlight {
-    color: #e50914;
-}
-
-/* LOGO */
-.logo {
-    width: 220px;
-    margin: 20px auto 25px auto;
-    display: block;
-    filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.5));
-}
-
-/* FADE IN */
-.fade-in {
-    opacity: 0;
-    transform: translateY(10px);
-    animation: fadeIn 1.2s ease forwards;
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        transform: translateY(0);
+  <style>
+    * {
+      box-sizing: border-box;
     }
-}
 
-button {
-    background: #e50914;
-    color: white;
-    border: none;
-    padding: 14px 20px;
-    margin: 10px 5px;
-    font-size: 16px;
-    border-radius: 6px;
-    cursor: pointer;
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #000;
+      color: #fff;
+      text-align: center;
+    }
 
-button.secondary {
-    background: transparent;
-    border: 1px solid #e50914;
-}
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 48px 24px 60px;
+    }
 
-.section {
-    margin-top: 50px;
-}
+    h1 {
+      font-size: 64px;
+      line-height: 1.05;
+      font-weight: 800;
+      margin: 24px 0 20px;
+      letter-spacing: -0.03em;
+    }
 
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border-radius: 6px;
-    border: none;
-    font-size: 16px;
-}
+    p.subtext {
+      font-size: 28px;
+      line-height: 1.45;
+      color: #cfcfcf;
+      margin: 0 auto 34px;
+      max-width: 680px;
+    }
 
-.form-box {
-    background: #111;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
-}
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-bottom: 34px;
+    }
 
-.small {
-    font-size: 13px;
-    color: #888;
-    margin-top: 10px;
-}
-</style>
+    .btn {
+      display: inline-block;
+      min-width: 230px;
+      padding: 18px 26px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 22px;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #e01919;
+      color: #fff;
+      border: 2px solid #e01919;
+    }
+
+    .btn-primary:hover {
+      background: #f02121;
+      border-color: #f02121;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      border: 2px solid #444;
+    }
+
+    .btn-secondary:hover {
+      border-color: #777;
+    }
+
+    .hero-image {
+      width: 100%;
+      max-width: 690px;
+      border-radius: 28px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    .small-note {
+      margin-top: 18px;
+      color: #8d8d8d;
+      font-size: 18px;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 34px 18px 48px;
+      }
+
+      h1 {
+        font-size: 34px;
+        margin-top: 8px;
+        margin-bottom: 14px;
+      }
+
+      p.subtext {
+        font-size: 18px;
+        margin-bottom: 26px;
+      }
+
+      .button-row {
+        gap: 14px;
+        margin-bottom: 26px;
+      }
+
+      .btn {
+        min-width: 0;
+        width: calc(50% - 7px);
+        padding: 16px 10px;
+        font-size: 16px;
+        border-radius: 10px;
+      }
+
+      .hero-image {
+        border-radius: 22px;
+      }
+
+      .small-note {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .btn {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
-
 <body>
+  <div class="container">
+    <h1>Turn videos into orders.</h1>
 
-<div class="container">
+    <p class="subtext">
+      Customers discover food through video and order directly from the restaurant.
+    </p>
 
-<!-- LOGO -->
-<img src="dmf-logo.jpg" alt="DMF Logo" class="logo fade-in">
+    <div class="button-row">
+      <a href="demo.html" class="btn btn-primary">Watch Demo</a>
+      <a href="restaurant.html" class="btn btn-secondary">Get Early Access</a>
+    </div>
 
-<!-- HERO -->
-<h1>Turn attention into <span class="highlight">direct orders</span>.</h1>
+    <img src="phone-mockup.png" alt="DMF phone mockup" class="hero-image" />
 
-<p>
-Customers discover your food through video — and order directly from you.
-</p>
-
-<p class="small">Built in the delivery industry — since 1996.</p>
-
-<!-- BUTTONS -->
-<button onclick="scrollToSection('restaurant')">Get Featured</button>
-<button class="secondary" onclick="scrollToSection('customer')">Get Early Access</button>
-
-<p class="small">Be first when we launch in your area.</p>
-
-<!-- HOW IT WORKS -->
-<div class="section">
-<h2>How it works</h2>
-<p><strong>Discover → Watch → Order</strong></p>
-<p class="small">No apps. No tablets. No middleman.</p>
-</div>
-
-<!-- VALUE -->
-<div class="section">
-<h2>Stop renting your customers. Start owning them.</h2>
-<p>No commissions. Direct checkout. You keep the relationship.</p>
-</div>
-
-<!-- RESTAURANT FORM -->
-<div id="restaurant" class="section">
-<h2>Become a Founding Restaurant</h2>
-<p>Get direct orders. No commissions. Full customer ownership.</p>
-
-<div class="form-box">
-<form onsubmit="return checkBot(this)">
-
-<input type="text" placeholder="Restaurant Name" required>
-<input type="text" placeholder="Contact Name" required>
-<input type="email" placeholder="Email" required>
-<input type="text" placeholder="POS System (Toast, Square, Clover)">
-
-<!-- Honeypot -->
-<input type="text" name="company" style="display:none">
-
-<button type="submit">Get Started</button>
-</form>
-</div>
-</div>
-
-<!-- CUSTOMER WAITLIST -->
-<div id="customer" class="section">
-<h2>Get Early Access</h2>
-
-<p>We’re opening this up to a limited group of early users.</p>
-
-<p>
-Discover local restaurants, watch food videos, and order directly — no middleman.
-</p>
-
-<div class="form-box">
-<form onsubmit="return checkBot(this)">
-
-<input type="text" placeholder="Name" required>
-<input type="email" placeholder="Email" required>
-
-<!-- Honeypot -->
-<input type="text" name="company" style="display:none">
-
-<button type="submit">Join Early Access</button>
-</form>
-
-<p class="small">Limited to the first 1,000 users.</p>
-</div>
-</div>
-
-</div>
-
-<script>
-
-// Track time
-let startTime = Date.now();
-
-// Scroll function
-function scrollToSection(id) {
-    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
-}
-
-// Bot protection
-function checkBot(form) {
-    let timeTaken = (Date.now() - startTime) / 1000;
-
-    if (form.company.value !== "") return false;
-    if (timeTaken < 3) return false;
-
-    return true;
-}
-
-</script>
-
+  </div>
 </body>
 </html>
