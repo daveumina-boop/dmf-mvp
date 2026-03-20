@@ -1,98 +1,216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DMF – Turn Videos Into Orders</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0f0f0f;
-      color: white;
-      text-align: center;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DeliverMeFood 2.0</title>
 
-    .container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 40px 20px;
-    }
+<style>
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #0b0b0b;
+    color: #ffffff;
+    text-align: center;
+    animation: fadeIn 1s ease;
+}
 
-    h1 {
-      font-size: 40px;
-      margin-bottom: 10px;
-    }
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
 
-    p {
-      color: #ccc;
-      font-size: 18px;
-      margin-bottom: 30px;
-      line-height: 1.5;
-    }
+h1 {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
 
-    .btn {
-      display: inline-block;
-      padding: 14px 24px;
-      margin: 10px;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
+h2 {
+    margin-top: 40px;
+    font-size: 24px;
+}
 
-    .primary {
-      background: #e50914;
-      color: white;
-    }
+p {
+    color: #cccccc;
+    line-height: 1.5;
+}
 
-    .secondary {
-      border: 1px solid #555;
-      color: white;
-    }
+.highlight {
+    color: #e50914;
+}
 
-    img {
-      max-width: 100%;
-      border-radius: 20px;
-      margin: 40px 0;
-    }
+/* LOGO */
+.logo {
+    width: 220px;
+    margin: 20px auto 25px auto;
+    display: block;
+    filter: drop-shadow(0 0 20px rgba(229, 9, 20, 0.5));
+}
 
-    .section {
-      margin: 60px 0;
+/* FADE IN */
+.fade-in {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
-  </style>
+}
+
+button {
+    background: #e50914;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    margin: 10px 5px;
+    font-size: 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button.secondary {
+    background: transparent;
+    border: 1px solid #e50914;
+}
+
+.section {
+    margin-top: 50px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px;
+}
+
+.form-box {
+    background: #111;
+    padding: 20px;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+.small {
+    font-size: 13px;
+    color: #888;
+    margin-top: 10px;
+}
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<div class="container">
 
-    <h1>Turn videos into orders.</h1>
+<!-- LOGO -->
+<img src="dmf-logo.jpg" alt="DMF Logo" class="logo fade-in">
 
-    <p>
-      Customers discover food through video and order directly from the restaurant.
-    </p>
+<!-- HERO -->
+<h1>Turn attention into <span class="highlight">direct orders</span>.</h1>
 
-    <a href="demo.html" class="btn primary">Watch Demo</a>
-    <<a href="restaurant.html" class="btn secondary">Restaurant Inquiry</a>
-    <img src="phone-mockup.png" alt="DMF Demo Phone">
+<p>
+Customers discover your food through video — and order directly from you.
+</p>
 
-    <div class="section">
-      <h2>How it works</h2>
-      <p>Watch → Tap → Order</p>
-    </div>
+<p class="small">Built in the delivery industry — since 1996.</p>
 
-    <div class="section">
-      <h2>Stop renting customers. Start owning them.</h2>
-      <p>No commissions. Direct checkout. You own the customer.</p>
-    </div>
+<!-- BUTTONS -->
+<button onclick="scrollToSection('restaurant')">Get Featured</button>
+<button class="secondary" onclick="scrollToSection('customer')">Get Early Access</button>
 
-    <div class="section" id="contact">
-      <h2>Want your restaurant featured?</h2>
-      <p>See how DMF can turn your food videos into direct orders.</p>
-    </div>
+<p class="small">Be first when we launch in your area.</p>
 
-  </div>
+<!-- HOW IT WORKS -->
+<div class="section">
+<h2>How it works</h2>
+<p><strong>Discover → Watch → Order</strong></p>
+<p class="small">No apps. No tablets. No middleman.</p>
+</div>
+
+<!-- VALUE -->
+<div class="section">
+<h2>Stop renting your customers. Start owning them.</h2>
+<p>No commissions. Direct checkout. You keep the relationship.</p>
+</div>
+
+<!-- RESTAURANT FORM -->
+<div id="restaurant" class="section">
+<h2>Become a Founding Restaurant</h2>
+<p>Get direct orders. No commissions. Full customer ownership.</p>
+
+<div class="form-box">
+<form onsubmit="return checkBot(this)">
+
+<input type="text" placeholder="Restaurant Name" required>
+<input type="text" placeholder="Contact Name" required>
+<input type="email" placeholder="Email" required>
+<input type="text" placeholder="POS System (Toast, Square, Clover)">
+
+<!-- Honeypot -->
+<input type="text" name="company" style="display:none">
+
+<button type="submit">Get Started</button>
+</form>
+</div>
+</div>
+
+<!-- CUSTOMER WAITLIST -->
+<div id="customer" class="section">
+<h2>Get Early Access</h2>
+
+<p>We’re opening this up to a limited group of early users.</p>
+
+<p>
+Discover local restaurants, watch food videos, and order directly — no middleman.
+</p>
+
+<div class="form-box">
+<form onsubmit="return checkBot(this)">
+
+<input type="text" placeholder="Name" required>
+<input type="email" placeholder="Email" required>
+
+<!-- Honeypot -->
+<input type="text" name="company" style="display:none">
+
+<button type="submit">Join Early Access</button>
+</form>
+
+<p class="small">Limited to the first 1,000 users.</p>
+</div>
+</div>
+
+</div>
+
+<script>
+
+// Track time on page
+let startTime = Date.now();
+
+// Scroll function
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+}
+
+// Bot protection
+function checkBot(form) {
+    let timeTaken = (Date.now() - startTime) / 1000;
+
+    if (form.company.value !== "") return false;
+    if (timeTaken < 3) return false;
+
+    return true;
+}
+
+</script>
 
 </body>
 </html>
