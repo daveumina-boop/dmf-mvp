@@ -4,18 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>DMF — The DeliverMeFood App</title>
-  <meta property="og:title" content="DMF — The DeliverMeFood App" />
-  <meta property="og:description" content="Turn videos into direct orders. Watch. Tap. Order." />
-  <meta property="og:image" content="phone-mockup.png" />
+  <title>Get More Info — DMF</title>
+
+  <meta property="og:title" content="Get More Info — DMF" />
+  <meta property="og:description" content="Learn how DMF helps restaurants generate direct orders through video." />
+  <meta property="og:image" content="dmf-logo.jpg" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://yourwebsite.com" />
+  <meta property="og:url" content="https://yourwebsite.com/restaurant.html" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
@@ -28,128 +27,176 @@
     .container {
       max-width: 760px;
       margin: 0 auto;
-      padding: 48px 24px 60px;
+      padding: 40px 20px 70px;
+    }
+
+    .logo {
+      width: 160px;
+      margin: 0 auto 20px;
+      display: block;
+      opacity: 0.9;
     }
 
     h1 {
-      font-size: 64px;
-      line-height: 1.05;
-      font-weight: 800;
-      margin: 24px 0 20px;
-      letter-spacing: -0.03em;
+      font-size: 40px;
+      margin: 10px 0 12px;
     }
 
-    p.subtext {
+    h2 {
       font-size: 28px;
-      line-height: 1.45;
-      color: #cfcfcf;
-      margin: 0 auto 34px;
-      max-width: 680px;
+      margin: 0 0 10px;
     }
 
-    .button-row {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      flex-wrap: wrap;
-      margin-bottom: 34px;
+    p {
+      color: #cfcfcf;
+      line-height: 1.6;
+      font-size: 18px;
+      margin-bottom: 14px;
+    }
+
+    .small {
+      color: #888;
+      font-size: 14px;
+    }
+
+    .card {
+      background: #0f0f0f;
+      border: 1px solid #1f1f1f;
+      border-radius: 16px;
+      padding: 24px;
+      margin: 30px auto;
+      text-align: left;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #2a2a2a;
+      background: #151515;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    input:focus {
+      border-color: #e01919;
+      outline: none;
     }
 
     .btn {
-      display: inline-block;
-      min-width: 230px;
-      padding: 18px 26px;
-      border-radius: 12px;
-      text-decoration: none;
-      font-size: 22px;
-      font-weight: 700;
-      transition: 0.2s ease;
-    }
-
-    .btn-primary {
+      width: 100%;
+      padding: 16px;
+      margin-top: 10px;
+      border-radius: 10px;
+      border: none;
       background: #e01919;
       color: #fff;
-      border: 2px solid #e01919;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
     }
 
-    .btn-primary:hover {
-      background: #f02121;
-      border-color: #f02121;
+    .btn:hover {
+      background: #f02222;
     }
 
-    .btn-secondary {
-      background: transparent;
+    .divider {
+      margin: 40px auto;
+      width: 80px;
+      height: 2px;
+      background: #e01919;
+    }
+
+    .back {
+      margin-top: 20px;
+      display: inline-block;
+      color: #888;
+      text-decoration: none;
+    }
+
+    .back:hover {
       color: #fff;
-      border: 2px solid #444;
-    }
-
-    .btn-secondary:hover {
-      border-color: #777;
-    }
-
-    .hero-image {
-      width: 100%;
-      max-width: 690px;
-      border-radius: 28px;
-      display: block;
-      margin: 0 auto;
-    }
-
-    @media (max-width: 768px) {
-      .container {
-        padding: 34px 18px 48px;
-      }
-
-      h1 {
-        font-size: 34px;
-        margin-top: 8px;
-        margin-bottom: 14px;
-      }
-
-      p.subtext {
-        font-size: 18px;
-        margin-bottom: 26px;
-      }
-
-      .button-row {
-        gap: 14px;
-        margin-bottom: 26px;
-      }
-
-      .btn {
-        min-width: 0;
-        width: calc(50% - 7px);
-        padding: 16px 10px;
-        font-size: 16px;
-        border-radius: 10px;
-      }
-
-      .hero-image {
-        border-radius: 22px;
-      }
-    }
-
-    @media (max-width: 420px) {
-      .btn {
-        width: 100%;
-      }
     }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>Turn videos into orders.</h1>
 
-    <p class="subtext">
-      Customers discover food through video and order directly from the restaurant.
+<body>
+
+<div class="container">
+
+  <img src="dmf-logo.jpg" class="logo">
+
+  <h1>Get More Info</h1>
+  <p>
+    We’re building a better way for restaurants to generate direct orders through video.
+  </p>
+  <p class="small">
+    No pressure. Just information.
+  </p>
+
+  <!-- RESTAURANT -->
+  <div class="card">
+    <h2>For Restaurants</h2>
+    <p>
+      Tell us about your restaurant and we’ll reach out with more information on how this works.
     </p>
 
-    <div class="button-row">
-      <a href="demo.html" class="btn btn-primary">Watch Demo</a>
-      <a href="restaurant.html" class="btn btn-secondary">Get More Info</a>
-    </div>
+    <form action="https://formspree.io/f/mdawbbag" method="POST" onsubmit="return checkBot(this)">
+      <input type="hidden" name="lead_type" value="restaurant">
 
-    <img src="phone-mockup.png" alt="DMF phone mockup" class="hero-image" />
+      <input type="text" name="restaurant_name" placeholder="Restaurant Name" required>
+      <input type="text" name="contact_name" placeholder="Contact Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="pos_system" placeholder="POS System (Toast, Square, Clover)">
+
+      <!-- Honeypot -->
+      <input type="text" name="company" style="display:none">
+
+      <button type="submit" class="btn">Request Info</button>
+    </form>
   </div>
+
+  <div class="divider"></div>
+
+  <!-- CUSTOMER -->
+  <div class="card">
+    <h2>For Customers</h2>
+    <p>
+      Be one of the first to experience a new way to discover and order food.
+    </p>
+
+    <form action="https://formspree.io/f/mdawbbag" method="POST" onsubmit="return checkBot(this)">
+      <input type="hidden" name="lead_type" value="customer">
+
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+
+      <!-- Honeypot -->
+      <input type="text" name="company" style="display:none">
+
+      <button type="submit" class="btn">Join Early Access</button>
+    </form>
+
+    <p class="small">Limited to early users.</p>
+  </div>
+
+  <a href="index.html" class="back">← Back to Home</a>
+
+</div>
+
+<script>
+  let startTime = Date.now();
+
+  function checkBot(form) {
+    let timeTaken = (Date.now() - startTime) / 1000;
+
+    if (form.company.value !== "") return false;
+    if (timeTaken < 3) return false;
+
+    return true;
+  }
+</script>
+
 </body>
 </html>
