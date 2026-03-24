@@ -73,13 +73,12 @@
       width: 42px;
       height: 42px;
       border-radius: 10px;
-      object-fit: cover;
-      object-position: center;
-      transform: scale(1.22);
+      object-fit: contain;
+      padding: 4px;
+      background: #fff;
       display: block;
       box-shadow: 0 6px 16px rgba(0,0,0,0.45);
       flex-shrink: 0;
-      background: #111;
     }
 
     .logo-overlay span {
@@ -162,11 +161,10 @@
     .profile img {
       width: 56px;
       height: 56px;
-      object-fit: cover;
-      object-position: center;
-      transform: scale(1.35);
+      object-fit: contain;
+      padding: 6px;
+      background: #fff;
       display: block;
-      background: #111;
     }
 
     .follow {
@@ -225,15 +223,15 @@
     }
 
     .bottom-info .restaurant {
-      font-weight: 800;
-      font-size: 19px;
+      font-weight: 900;
+      font-size: 22px;
       margin-bottom: 6px;
       letter-spacing: -0.01em;
     }
 
     .bottom-info .description {
-      font-size: 13px;
-      color: #e2e2e2;
+      font-size: 14px;
+      color: #e6e6e6;
       line-height: 1.45;
       max-width: 430px;
     }
@@ -243,15 +241,15 @@
       bottom: 20px;
       left: 16px;
       right: 16px;
-      background: #d9342b;
+      background: linear-gradient(90deg, #ff3b30, #d10000);
       color: #fff;
-      padding: 17px 20px;
-      border-radius: 16px;
-      font-weight: 800;
+      padding: 18px 20px;
+      border-radius: 18px;
+      font-weight: 900;
       font-size: 18px;
       text-align: center;
       text-decoration: none;
-      box-shadow: 0 10px 30px rgba(217, 52, 43, 0.45);
+      box-shadow: 0 14px 40px rgba(217, 52, 43, 0.5);
       z-index: 20;
     }
 
@@ -360,7 +358,7 @@
 
     <!-- Slide 1 -->
     <section class="slide">
-      <video class="feed-video" autoplay muted loop playsinline>
+      <video class="feed-video" muted loop playsinline preload="auto">
         <source src="demo-video.mov" type="video/quicktime" />
       </video>
 
@@ -419,7 +417,7 @@
 
     <!-- Slide 2 -->
     <section class="slide">
-      <video class="feed-video" autoplay muted loop playsinline>
+      <video class="feed-video" muted loop playsinline preload="auto">
         <source src="demo2-video.MOV" type="video/quicktime" />
       </video>
 
@@ -478,42 +476,79 @@
 
   <script>
     const videos = document.querySelectorAll('.feed-video');
+    const slides = document.querySelectorAll('.slide');
     const soundToggle = document.getElementById('soundToggle');
     const tapSound = document.getElementById('tapSound');
     const tapSoundBadge = document.getElementById('tapSoundBadge');
+    const feed = document.getElementById('feed');
+
+    let soundEnabled = false;
+    let activeIndex = 0;
 
     function updateSoundButton() {
-      const anyUnmuted = Array.from(videos).some(video => !video.muted);
-      soundToggle.textContent = anyUnmuted ? '🔊 Sound On' : '🔇 Sound Off';
+      soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off';
+    }
+
+    function playActiveVideo() {
+      videos.forEach((video, index) => {
+        if (index === activeIndex) {
+          video.muted = !soundEnabled;
+          video.volume = 1.0;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+          video.muted = true;
+        }
+      });
+
+      if (soundEnabled) {
+        tapSound.classList.add('hidden');
+      } else {
+        tapSound.classList.remove('hidden');
+      }
+
+      updateSoundButton();
     }
 
     async function enableSound() {
       try {
-        videos.forEach(video => {
-          video.muted = false;
-          video.volume = 1.0;
-          video.play();
-        });
-        tapSound.classList.add('hidden');
-        updateSoundButton();
+        soundEnabled = true;
+        playActiveVideo();
       } catch (e) {
         console.log('Sound enable blocked until user interaction.', e);
       }
     }
 
-    function muteAll() {
-      videos.forEach(video => {
-        video.muted = true;
+    function disableSound() {
+      soundEnabled = false;
+      playActiveVideo();
+    }
+
+    function detectActiveSlide() {
+      let bestIndex = 0;
+      let bestVisible = 0;
+
+      slides.forEach((slide, index) => {
+        const rect = slide.getBoundingClientRect();
+        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+        if (visibleHeight > bestVisible) {
+          bestVisible = visibleHeight;
+          bestIndex = index;
+        }
       });
-      updateSoundButton();
+
+      if (bestIndex !== activeIndex) {
+        activeIndex = bestIndex;
+        playActiveVideo();
+      }
     }
 
     soundToggle.addEventListener('click', async () => {
-      const anyMuted = Array.from(videos).some(video => video.muted);
-      if (anyMuted) {
-        await enableSound();
+      if (soundEnabled) {
+        disableSound();
       } else {
-        muteAll();
+        await enableSound();
       }
     });
 
@@ -521,15 +556,23 @@
       await enableSound();
     });
 
-    videos.forEach(video => {
+    videos.forEach((video, index) => {
       video.addEventListener('click', async () => {
-        if (video.muted) {
+        activeIndex = index;
+        if (!soundEnabled) {
           await enableSound();
         }
       });
     });
 
-    updateSoundButton();
+    feed.addEventListener('scroll', () => {
+      detectActiveSlide();
+    });
+
+    window.addEventListener('load', () => {
+      detectActiveSlide();
+      playActiveVideo();
+    });
   </script>
 
 </body>
