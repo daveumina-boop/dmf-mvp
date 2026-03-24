@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DMF Demo</title>
+  <title>DMF Demo Feed</title>
 
   <style>
     * {
@@ -14,14 +14,24 @@
       margin: 0;
       padding: 0;
       background: #000;
-      overflow: hidden;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      scroll-behavior: smooth;
     }
 
-    .video-container {
-      position: relative;
-      width: 100vw;
+    .feed {
       height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slide {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      scroll-snap-align: start;
       background: #000;
     }
 
@@ -43,7 +53,6 @@
       pointer-events: none;
     }
 
-    /* Top-left brand pill */
     .logo-overlay {
       position: absolute;
       top: 16px;
@@ -70,6 +79,7 @@
       display: block;
       box-shadow: 0 6px 16px rgba(0,0,0,0.45);
       flex-shrink: 0;
+      background: #111;
     }
 
     .logo-overlay span {
@@ -82,7 +92,6 @@
       white-space: nowrap;
     }
 
-    /* Top-right sound button */
     .sound-toggle {
       position: absolute;
       top: 18px;
@@ -100,7 +109,6 @@
       cursor: pointer;
     }
 
-    /* Center tap-for-sound prompt */
     .tap-sound {
       position: absolute;
       inset: 0;
@@ -129,7 +137,6 @@
       cursor: pointer;
     }
 
-    /* Right-side TikTok actions */
     .side-actions {
       position: absolute;
       right: 12px;
@@ -159,6 +166,7 @@
       object-position: center;
       transform: scale(1.35);
       display: block;
+      background: #111;
     }
 
     .follow {
@@ -206,7 +214,6 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.35);
     }
 
-    /* Bottom restaurant text */
     .bottom-info {
       position: absolute;
       left: 16px;
@@ -231,7 +238,6 @@
       max-width: 430px;
     }
 
-    /* Order button */
     .order-btn {
       position: absolute;
       bottom: 20px;
@@ -247,6 +253,23 @@
       text-decoration: none;
       box-shadow: 0 10px 30px rgba(217, 52, 43, 0.45);
       z-index: 20;
+    }
+
+    .swipe-hint {
+      position: absolute;
+      bottom: 92px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 21;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      background: rgba(0,0,0,0.32);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 8px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
     }
 
     @media (max-width: 600px) {
@@ -317,89 +340,160 @@
         font-size: 18px;
         padding: 16px 20px;
       }
+
+      .swipe-hint {
+        bottom: 90px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <div class="video-container">
-    <video id="demoVideo" autoplay muted loop playsinline>
-      <source src="demo-video.mov" type="video/quicktime" />
-    </video>
+  <button id="soundToggle" class="sound-toggle">🔇 Sound Off</button>
 
-    <div class="bottom-fade"></div>
+  <div id="tapSound" class="tap-sound">
+    <button id="tapSoundBadge" class="tap-sound-badge">🔊 Tap for sound</button>
+  </div>
 
-    <div class="logo-overlay">
-      <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" />
-      <span>Real Smoq'ed BBQ</span>
-    </div>
+  <div class="feed" id="feed">
 
-    <button id="soundToggle" class="sound-toggle">🔇 Sound Off</button>
+    <!-- Slide 1 -->
+    <section class="slide">
+      <video class="feed-video" autoplay muted loop playsinline>
+        <source src="demo-video.mov" type="video/quicktime" />
+      </video>
 
-    <div id="tapSound" class="tap-sound">
-      <button id="tapSoundBadge" class="tap-sound-badge">🔊 Tap for sound</button>
-    </div>
+      <div class="bottom-fade"></div>
 
-    <div class="side-actions">
-      <div class="profile">
-        <img src="bbq-logo.png" alt="Real Smoq'ed BBQ profile" />
-        <div class="follow">+</div>
+      <div class="logo-overlay">
+        <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" />
+        <span>Real Smoq'ed BBQ</span>
       </div>
 
-      <a href="#" class="action">
-        <div class="action-btn">❤️</div>
-        <div>1.2K</div>
-      </a>
+      <div class="side-actions">
+        <div class="profile">
+          <img src="bbq-logo.png" alt="Real Smoq'ed BBQ profile" />
+          <div class="follow">+</div>
+        </div>
 
-      <a href="#" class="action">
-        <div class="action-btn">💬</div>
-        <div>184</div>
-      </a>
+        <a href="#" class="action">
+          <div class="action-btn">❤️</div>
+          <div>1.2K</div>
+        </a>
 
-      <a href="#" class="action">
-        <div class="action-btn">🔖</div>
-        <div>Save</div>
-      </a>
+        <a href="#" class="action">
+          <div class="action-btn">💬</div>
+          <div>184</div>
+        </a>
 
-      <a href="#" class="action">
-        <div class="action-btn">↗️</div>
-        <div>Share</div>
-      </a>
-    </div>
+        <a href="#" class="action">
+          <div class="action-btn">🔖</div>
+          <div>Save</div>
+        </a>
 
-    <div class="bottom-info">
-      <div class="restaurant">Real Smoq'ed BBQ</div>
-      <div class="description">
-        Slow-smoked BBQ, sauced ribs, and real comfort food.
+        <a href="#" class="action">
+          <div class="action-btn">↗️</div>
+          <div>Share</div>
+        </a>
       </div>
-    </div>
 
-    <a
-      href="https://realsmoqedbbq.com/menu"
-      class="order-btn"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      Order Now
-    </a>
+      <div class="bottom-info">
+        <div class="restaurant">Real Smoq'ed BBQ</div>
+        <div class="description">
+          Slow-smoked BBQ, sauced ribs, and real comfort food.
+        </div>
+      </div>
+
+      <div class="swipe-hint">Swipe for next restaurant ↓</div>
+
+      <a
+        href="https://realsmoqedbbq.com/menu"
+        class="order-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Order Now
+      </a>
+    </section>
+
+    <!-- Slide 2 -->
+    <section class="slide">
+      <video class="feed-video" autoplay muted loop playsinline>
+        <source src="demo2-video.MOV" type="video/quicktime" />
+      </video>
+
+      <div class="bottom-fade"></div>
+
+      <div class="logo-overlay">
+        <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle logo" />
+        <span>Pizzazz on the Circle</span>
+      </div>
+
+      <div class="side-actions">
+        <div class="profile">
+          <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle profile" />
+          <div class="follow">+</div>
+        </div>
+
+        <a href="#" class="action">
+          <div class="action-btn">❤️</div>
+          <div>986</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">💬</div>
+          <div>127</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">🔖</div>
+          <div>Save</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">↗️</div>
+          <div>Share</div>
+        </a>
+      </div>
+
+      <div class="bottom-info">
+        <div class="restaurant">Pizzazz on the Circle</div>
+        <div class="description">
+          Pizza, pasta, comfort food, and downtown flavor — discover it, then order direct.
+        </div>
+      </div>
+
+      <a
+        href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
+        class="order-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Order Now
+      </a>
+    </section>
+
   </div>
 
   <script>
-    const video = document.getElementById('demoVideo');
+    const videos = document.querySelectorAll('.feed-video');
     const soundToggle = document.getElementById('soundToggle');
     const tapSound = document.getElementById('tapSound');
     const tapSoundBadge = document.getElementById('tapSoundBadge');
 
     function updateSoundButton() {
-      soundToggle.textContent = video.muted ? '🔇 Sound Off' : '🔊 Sound On';
+      const anyUnmuted = Array.from(videos).some(video => !video.muted);
+      soundToggle.textContent = anyUnmuted ? '🔊 Sound On' : '🔇 Sound Off';
     }
 
     async function enableSound() {
       try {
-        video.muted = false;
-        video.volume = 1.0;
-        await video.play();
+        videos.forEach(video => {
+          video.muted = false;
+          video.volume = 1.0;
+          video.play();
+        });
         tapSound.classList.add('hidden');
         updateSoundButton();
       } catch (e) {
@@ -407,12 +501,19 @@
       }
     }
 
+    function muteAll() {
+      videos.forEach(video => {
+        video.muted = true;
+      });
+      updateSoundButton();
+    }
+
     soundToggle.addEventListener('click', async () => {
-      if (video.muted) {
+      const anyMuted = Array.from(videos).some(video => video.muted);
+      if (anyMuted) {
         await enableSound();
       } else {
-        video.muted = true;
-        updateSoundButton();
+        muteAll();
       }
     });
 
@@ -420,10 +521,12 @@
       await enableSound();
     });
 
-    video.addEventListener('click', async () => {
-      if (video.muted) {
-        await enableSound();
-      }
+    videos.forEach(video => {
+      video.addEventListener('click', async () => {
+        if (video.muted) {
+          await enableSound();
+        }
+      });
     });
 
     updateSoundButton();
