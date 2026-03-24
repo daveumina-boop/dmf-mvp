@@ -73,12 +73,10 @@
       width: 42px;
       height: 42px;
       border-radius: 10px;
-      object-fit: contain;
-      padding: 4px;
-      background: #fff;
       display: block;
       box-shadow: 0 6px 16px rgba(0,0,0,0.45);
       flex-shrink: 0;
+      background: #111;
     }
 
     .logo-overlay span {
@@ -161,10 +159,8 @@
     .profile img {
       width: 56px;
       height: 56px;
-      object-fit: contain;
-      padding: 6px;
-      background: #fff;
       display: block;
+      background: #111;
     }
 
     .follow {
@@ -255,19 +251,43 @@
 
     .swipe-hint {
       position: absolute;
-      bottom: 92px;
+      bottom: 96px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 21;
       font-size: 12px;
       font-weight: 700;
-      color: rgba(255,255,255,0.85);
-      background: rgba(0,0,0,0.32);
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.38);
       border: 1px solid rgba(255,255,255,0.12);
-      padding: 8px 12px;
+      padding: 9px 14px;
       border-radius: 999px;
       backdrop-filter: blur(8px);
       box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      animation: floatHint 1.6s ease-in-out infinite;
+    }
+
+    @keyframes floatHint {
+      0% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+      100% { transform: translateX(-50%) translateY(0); }
+    }
+
+    /* Per-logo fixes */
+    .logo-overlay img.logo-bbq,
+    .profile img.logo-bbq {
+      object-fit: cover;
+      padding: 0;
+      background: transparent;
+      transform: scale(1.18);
+    }
+
+    .logo-overlay img.logo-pizzazz,
+    .profile img.logo-pizzazz {
+      object-fit: contain;
+      padding: 4px;
+      background: #fff;
+      transform: none;
     }
 
     @media (max-width: 600px) {
@@ -340,7 +360,7 @@
       }
 
       .swipe-hint {
-        bottom: 90px;
+        bottom: 92px;
       }
     }
   </style>
@@ -365,13 +385,13 @@
       <div class="bottom-fade"></div>
 
       <div class="logo-overlay">
-        <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" />
+        <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" class="logo-bbq" />
         <span>Real Smoq'ed BBQ</span>
       </div>
 
       <div class="side-actions">
         <div class="profile">
-          <img src="bbq-logo.png" alt="Real Smoq'ed BBQ profile" />
+          <img src="bbq-logo.png" alt="Real Smoq'ed BBQ profile" class="logo-bbq" />
           <div class="follow">+</div>
         </div>
 
@@ -403,7 +423,7 @@
         </div>
       </div>
 
-      <div class="swipe-hint">Swipe for next restaurant ↓</div>
+      <div class="swipe-hint">Swipe up to explore more restaurants ↑</div>
 
       <a
         href="https://realsmoqedbbq.com/menu"
@@ -424,13 +444,13 @@
       <div class="bottom-fade"></div>
 
       <div class="logo-overlay">
-        <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle logo" />
+        <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle logo" class="logo-pizzazz" />
         <span>Pizzazz on the Circle</span>
       </div>
 
       <div class="side-actions">
         <div class="profile">
-          <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle profile" />
+          <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle profile" class="logo-pizzazz" />
           <div class="follow">+</div>
         </div>
 
@@ -489,6 +509,13 @@
       soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off';
     }
 
+    function updateSwipeHint() {
+      const hints = document.querySelectorAll('.swipe-hint');
+      hints.forEach((hint, index) => {
+        hint.style.display = index === 0 ? 'block' : 'none';
+      });
+    }
+
     function playActiveVideo() {
       videos.forEach((video, index) => {
         if (index === activeIndex) {
@@ -508,6 +535,7 @@
       }
 
       updateSoundButton();
+      updateSwipeHint();
     }
 
     async function enableSound() {
