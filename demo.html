@@ -437,7 +437,7 @@
 
     <!-- Slide 2 -->
     <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="auto">
+      <video class="feed-video" muted loop playsinline webkit-playsinline preload="metadata" id="video2">
         <source src="demo2-video.MOV" type="video/quicktime" />
       </video>
 
@@ -501,6 +501,7 @@
     const tapSound = document.getElementById('tapSound');
     const tapSoundBadge = document.getElementById('tapSoundBadge');
     const feed = document.getElementById('feed');
+    const video2 = document.getElementById('video2');
 
     let soundEnabled = false;
     let activeIndex = 0;
@@ -516,40 +517,59 @@
       });
     }
 
-    function playActiveVideo() {
+    function forceLoadVideo(video) {
+      if (!video) return;
+      video.load();
+      setTimeout(() => {
+        video.play().catch(() => {});
+      }, 300);
+    }
+
+    function syncVideos() {
       videos.forEach((video, index) => {
         if (index === activeIndex) {
           video.muted = !soundEnabled;
           video.volume = 1.0;
-          video.play().catch(() => {});
+          if (video.paused) {
+            video.play().catch(() => {});
+          }
         } else {
           video.pause();
           video.muted = true;
         }
       });
 
-      if (soundEnabled) {
-        tapSound.classList.add('hidden');
-      } else {
-        tapSound.classList.remove('hidden');
-      }
-
+      tapSound.classList.toggle('hidden', soundEnabled);
       updateSoundButton();
       updateSwipeHint();
     }
 
     async function enableSound() {
-      try {
-        soundEnabled = true;
-        playActiveVideo();
-      } catch (e) {
-        console.log('Sound enable blocked until user interaction.', e);
+      soundEnabled = true;
+
+      const activeVideo = videos[activeIndex];
+      activeVideo.muted = false;
+      activeVideo.volume = 1.0;
+
+      if (activeVideo.paused) {
+        try {
+          await activeVideo.play();
+        } catch (e) {
+          console.log('Unable to play with sound yet.', e);
+        }
       }
+
+      tapSound.classList.add('hidden');
+      updateSoundButton();
     }
 
     function disableSound() {
       soundEnabled = false;
-      playActiveVideo();
+      videos.forEach(video => {
+        video.muted = true;
+      });
+      tapSound.classList.remove('hidden');
+      updateSoundButton();
     }
 
     function detectActiveSlide() {
@@ -568,7 +588,12 @@
 
       if (bestIndex !== activeIndex) {
         activeIndex = bestIndex;
-        playActiveVideo();
+
+        if (activeIndex === 1) {
+          forceLoadVideo(video2);
+        }
+
+        syncVideos();
       }
     }
 
@@ -593,13 +618,12 @@
       });
     });
 
-    feed.addEventListener('scroll', () => {
-      detectActiveSlide();
-    });
+    feed.addEventListener('scroll', detectActiveSlide);
 
     window.addEventListener('load', () => {
       detectActiveSlide();
-      playActiveVideo();
+      syncVideos();
+      forceLoadVideo(video2);
     });
   </script>
 
