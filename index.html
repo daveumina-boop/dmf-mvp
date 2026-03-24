@@ -5,16 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>DMF — DeliverMeFood</title>
-  <meta name="description" content="DMF helps restaurants get discovered through video, generate new demand, and turn discovery into direct orders." />
+  <meta name="description" content="DMF delivers new customers through video-driven restaurant discovery and commission-free ordering." />
 
-  <!-- Share / iMessage / Facebook -->
   <meta property="og:title" content="DMF — DeliverMeFood" />
   <meta property="og:description" content="DMF delivers new customers through video-driven restaurant discovery and commission-free ordering." />
   <meta property="og:image" content="https://daveumina-boop.github.io/dmf-mvp/share-image.jpg" />
   <meta property="og:url" content="https://daveumina-boop.github.io/dmf-mvp/" />
   <meta property="og:type" content="website" />
 
-  <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="DMF — DeliverMeFood" />
   <meta name="twitter:description" content="DMF delivers new customers through video-driven restaurant discovery and commission-free ordering." />
@@ -37,7 +35,7 @@
     body {
       background:
         radial-gradient(circle at top center, rgba(224, 25, 25, 0.18), transparent 30%),
-        radial-gradient(circle at top right, rgba(120, 120, 120, 0.08), transparent 22%),
+        radial-gradient(circle at top right, rgba(180, 180, 180, 0.08), transparent 24%),
         #000;
     }
 
@@ -55,10 +53,8 @@
     .topbar {
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      gap: 18px;
-      margin-bottom: 28px;
-      padding: 8px 0 0;
+      gap: 14px;
+      margin-bottom: 24px;
     }
 
     .brand {
@@ -69,8 +65,8 @@
     }
 
     .brand img {
-      width: 66px;
-      height: 66px;
+      width: 64px;
+      height: 64px;
       object-fit: cover;
       border-radius: 50%;
       box-shadow: 0 8px 22px rgba(0,0,0,0.45);
@@ -102,7 +98,7 @@
       grid-template-columns: 1.02fr 0.98fr;
       gap: 28px;
       align-items: center;
-      margin-bottom: 54px;
+      margin-bottom: 52px;
     }
 
     .eyebrow {
@@ -132,7 +128,7 @@
       line-height: 1.55;
       color: #d0d0d0;
       max-width: 680px;
-      margin: 0 0 20px;
+      margin: 0 0 18px;
     }
 
     .hero-subtext strong {
@@ -198,13 +194,13 @@
       box-shadow: 0 18px 44px rgba(0,0,0,0.45);
     }
 
-    .section {
-      padding: 56px 0;
-    }
-
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.16) 50%, transparent 100%);
+    }
+
+    .section {
+      padding: 56px 0;
     }
 
     .section-header {
@@ -227,17 +223,14 @@
       max-width: 860px;
     }
 
-    .wins-grid {
+    .sales-grid {
       display: grid;
+      grid-template-columns: 1.3fr 0.85fr 0.85fr;
       gap: 22px;
       align-items: stretch;
     }
 
-    .wins-grid-new {
-      grid-template-columns: 1.3fr 0.85fr 0.85fr;
-    }
-
-    .wins-card {
+    .sales-card {
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 22px;
@@ -246,7 +239,7 @@
       box-shadow: 0 14px 36px rgba(0,0,0,0.35);
     }
 
-    .wins-card h3 {
+    .sales-card h3 {
       margin: 0 0 10px;
       font-size: 28px;
       line-height: 1.1;
@@ -260,13 +253,13 @@
       line-height: 1.4;
     }
 
-    .wins-card ul {
+    .sales-card ul {
       list-style: none;
       margin: 0;
       padding: 0;
     }
 
-    .wins-card li {
+    .sales-card li {
       padding: 11px 0;
       border-bottom: 1px solid rgba(255,255,255,0.08);
       color: #ededed;
@@ -274,7 +267,7 @@
       line-height: 1.45;
     }
 
-    .wins-card li:last-child {
+    .sales-card li:last-child {
       border-bottom: none;
     }
 
@@ -285,37 +278,36 @@
       line-height: 1.4;
     }
 
-    .neutral {
-      color: #b8b8b8;
-    }
-
-    .negative {
-      color: #ff6b6b;
-    }
-
-    .positive {
+    .card-note.green {
       color: #79ff9d;
     }
 
-    .wins-main {
+    .card-note.red {
+      color: #ff6b6b;
+    }
+
+    .card-note.gray {
+      color: #c8c8c8;
+    }
+
+    .main-card {
       border: 1px solid rgba(224, 25, 25, 0.42);
       background: linear-gradient(180deg, rgba(120,0,0,0.20) 0%, rgba(255,255,255,0.05) 100%);
       box-shadow: 0 18px 42px rgba(120,0,0,0.25);
     }
 
-    .wins-card.small-card {
+    .small-card {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      min-height: 100%;
     }
 
-    .wins-bottom {
+    .flow-block {
       text-align: center;
       margin-top: 24px;
     }
 
-    .wins-flow {
+    .flow-pill {
       display: inline-block;
       background: linear-gradient(90deg, #e01919 0%, #9d0000 100%);
       color: #fff;
@@ -328,97 +320,54 @@
       box-shadow: 0 12px 28px rgba(224, 25, 25, 0.24);
     }
 
-    .wins-bottom p {
-      margin: 0;
+    .flow-block p {
+      margin: 0 auto;
       font-size: 18px;
       color: #d4d4d4;
       line-height: 1.5;
       max-width: 780px;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    .economics-grid {
-      display: flex;
-      gap: 20px;
-      justify-content: center;
-      flex-wrap: wrap;
-      max-width: 950px;
+    .reason-block {
+      max-width: 920px;
       margin: 0 auto;
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 30px 22px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.32);
     }
 
-    .economics-card {
-      background: #111;
-      border: 1px solid #222;
-      border-radius: 16px;
-      padding: 24px;
-      width: 360px;
-      text-align: left;
+    .reason-block h2 {
+      margin: 0 0 14px;
+      font-size: clamp(30px, 5vw, 50px);
+      line-height: 1.05;
     }
 
-    .economics-card h3 {
-      margin-top: 0;
-      margin-bottom: 18px;
-      font-size: 24px;
+    .reason-lines {
+      display: grid;
+      gap: 12px;
+      max-width: 760px;
+      margin: 0 auto 10px;
     }
 
-    .econ-line {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #222;
-      color: #ddd;
-      gap: 16px;
+    .reason-line {
+      color: #d8d8d8;
+      font-size: 18px;
+      line-height: 1.5;
     }
 
-    .econ-line strong {
+    .reason-line strong {
       color: #fff;
     }
 
-    .econ-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 18px;
-      padding-top: 18px;
-      border-top: 2px solid #e01919;
-      font-size: 20px;
-      font-weight: 700;
-      gap: 16px;
-    }
-
-    .econ-total strong {
-      color: #4dff88;
-      font-size: 24px;
-    }
-
-    .bad-total {
-      border-top: 2px solid #666;
-    }
-
-    .bad-total strong {
-      color: #ff4d4d;
-    }
-
-    .economics-bottom {
-      text-align: center;
-      margin-top: 22px;
-    }
-
-    .economics-bottom strong {
-      display: block;
-      margin-bottom: 10px;
-      font-size: 20px;
-    }
-
-    .economics-bottom p {
-      color: #bbb;
-      margin: 0;
-      line-height: 1.5;
-      max-width: 760px;
-      margin-left: auto;
-      margin-right: auto;
+    .reason-final {
+      margin-top: 16px;
+      font-size: 22px;
+      font-weight: 800;
+      color: #79ff9d;
+      line-height: 1.35;
     }
 
     .cta-panel {
@@ -461,7 +410,7 @@
         gap: 22px;
       }
 
-      .wins-grid-new {
+      .sales-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -490,7 +439,9 @@
 
       .hero-subtext,
       .section-header p,
-      .cta-panel p {
+      .cta-panel p,
+      .reason-line,
+      .flow-block p {
         font-size: 17px;
       }
 
@@ -506,14 +457,14 @@
         padding: 46px 0;
       }
 
-      .economics-card {
-        width: 100%;
-      }
-
-      .wins-card,
-      .economics-card,
+      .sales-card,
+      .reason-block,
       .cta-panel {
         border-radius: 20px;
+      }
+
+      .reason-final {
+        font-size: 20px;
       }
     }
   </style>
@@ -545,7 +496,7 @@
         </p>
 
         <div class="hero-note">
-          Built to help restaurants grow visibility, own their customer relationships, and generate profitable direct orders.
+          Commission-free ordering. Video-driven demand. Direct restaurant relationships.
         </div>
 
         <div class="button-row">
@@ -566,12 +517,12 @@
         <h2>Restaurants Should Win — Here’s How</h2>
         <p>
           <strong>DMF delivers new customers.</strong><br>
-          Commission-free ordering. Video-driven demand. Direct restaurant relationships.
+          Commission-free. Demand-driven. Direct.
         </p>
       </div>
 
-      <div class="wins-grid wins-grid-new">
-        <div class="wins-card wins-main">
+      <div class="sales-grid">
+        <div class="sales-card main-card">
           <h3>What DMF Does</h3>
           <p class="card-main">Deliver new customers to your restaurant</p>
           <ul>
@@ -581,81 +532,41 @@
             <li>You keep the customer relationship</li>
             <li>You keep more of the order</li>
           </ul>
-          <div class="card-note positive">Built to help restaurants grow — not charge them every time.</div>
+          <div class="card-note green">Own the customer. Keep the margin.</div>
         </div>
 
-        <div class="wins-card small-card">
-          <h3>Commission-Free</h3>
-          <p class="card-main">More margin stays with the restaurant</p>
-          <div class="card-note neutral">No 20–35% marketplace commissions on every order.</div>
+        <div class="sales-card small-card">
+          <h3>What You’re Avoiding</h3>
+          <p class="card-main">Paying up to 35% to rent your own customers</p>
+          <div class="card-note gray">That’s money leaving the restaurant every time the same customer comes back.</div>
         </div>
 
-        <div class="wins-card small-card">
+        <div class="sales-card small-card">
           <h3>Delivery Apps</h3>
-          <p class="card-main">You’re renting your customers</p>
-          <div class="card-note negative">They bring the order, control the customer, and charge you again and again.</div>
+          <p class="card-main">They control the customer and charge you every time</p>
+          <div class="card-note red">DMF is built to create demand first — not recycle customers you already had.</div>
         </div>
       </div>
 
-      <div class="wins-bottom">
-        <div class="wins-flow">Discovery → Order → Fulfillment</div>
-        <p>DMF is built to create demand first — then convert it into direct restaurant orders.</p>
+      <div class="flow-block">
+        <div class="flow-pill">Discovery → Order → Fulfillment</div>
+        <p>DMF creates demand first — then turns it into direct restaurant orders.</p>
       </div>
     </section>
 
     <div class="divider"></div>
 
     <section class="section">
-      <div class="section-header">
-        <h2>What Happens on a $75 Order?</h2>
-        <p>With DeliverMeFood, restaurants can still keep strong margins on incremental orders.</p>
-      </div>
+      <div class="reason-block">
+        <h2>Why This Matters</h2>
 
-      <div class="economics-grid">
-
-        <div class="economics-card">
-          <h3>$75 Order with DMF</h3>
-          <div class="econ-line">
-            <span>Food Cost (30%)</span>
-            <strong>$22.50</strong>
-          </div>
-          <div class="econ-line">
-            <span>Packaging (5%)</span>
-            <strong>$3.75</strong>
-          </div>
-          <div class="econ-line">
-            <span>Example Delivery Cost</span>
-            <strong>$11.25</strong>
-          </div>
-
-          <div class="econ-total">
-            <span>Estimated Profit</span>
-            <strong>$37.50</strong>
-          </div>
+        <div class="reason-lines">
+          <div class="reason-line">Most app orders are customers who already know your restaurant.</div>
+          <div class="reason-line">You pay again and again just to rent them back.</div>
+          <div class="reason-line"><strong>DMF is built to bring you new customers — commission-free.</strong></div>
         </div>
 
-        <div class="economics-card">
-          <h3>$75 Order with Typical Apps</h3>
-          <div class="econ-line">
-            <span>Typical App Fee (30%)</span>
-            <strong>$22.50</strong>
-          </div>
-          <div class="econ-line">
-            <span>Food + Packaging</span>
-            <strong>$26.25</strong>
-          </div>
-
-          <div class="econ-total bad-total">
-            <span>Estimated Profit</span>
-            <strong>$26.25</strong>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="economics-bottom">
-        <strong>DeliverMeFood is designed to generate profitable incremental orders.</strong>
-        <p>Not just expensive orders from customers you already had.</p>
+        <div class="reason-final">New customers. No commissions. Real growth.</div>
       </div>
     </section>
 
