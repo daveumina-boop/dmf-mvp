@@ -30,6 +30,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      background: #000;
     }
 
     .bottom-fade {
@@ -79,6 +80,53 @@
       letter-spacing: -0.01em;
       text-shadow: 0 2px 8px rgba(0,0,0,0.55);
       white-space: nowrap;
+    }
+
+    /* Top-right sound button */
+    .sound-toggle {
+      position: absolute;
+      top: 18px;
+      right: 16px;
+      z-index: 25;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+
+    /* Center tap-for-sound prompt */
+    .tap-sound {
+      position: absolute;
+      inset: 0;
+      z-index: 24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .tap-sound.hidden {
+      display: none;
+    }
+
+    .tap-sound-badge {
+      pointer-events: auto;
+      background: rgba(0,0,0,0.58);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      cursor: pointer;
     }
 
     /* Right-side TikTok actions */
@@ -217,6 +265,18 @@
         font-size: 13px;
       }
 
+      .sound-toggle {
+        top: 16px;
+        right: 16px;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      .tap-sound-badge {
+        font-size: 16px;
+        padding: 14px 18px;
+      }
+
       .side-actions {
         right: 10px;
         bottom: 120px;
@@ -264,8 +324,8 @@
 <body>
 
   <div class="video-container">
-    <video autoplay muted loop playsinline>
-      <source src="demo-video.mov" type="video/mp4" />
+    <video id="demoVideo" autoplay muted loop playsinline>
+      <source src="demo-video.mov" type="video/quicktime" />
     </video>
 
     <div class="bottom-fade"></div>
@@ -273,6 +333,12 @@
     <div class="logo-overlay">
       <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" />
       <span>Real Smoq'ed BBQ</span>
+    </div>
+
+    <button id="soundToggle" class="sound-toggle">🔇 Sound Off</button>
+
+    <div id="tapSound" class="tap-sound">
+      <button id="tapSoundBadge" class="tap-sound-badge">🔊 Tap for sound</button>
     </div>
 
     <div class="side-actions">
@@ -318,6 +384,50 @@
       Order Now
     </a>
   </div>
+
+  <script>
+    const video = document.getElementById('demoVideo');
+    const soundToggle = document.getElementById('soundToggle');
+    const tapSound = document.getElementById('tapSound');
+    const tapSoundBadge = document.getElementById('tapSoundBadge');
+
+    function updateSoundButton() {
+      soundToggle.textContent = video.muted ? '🔇 Sound Off' : '🔊 Sound On';
+    }
+
+    async function enableSound() {
+      try {
+        video.muted = false;
+        video.volume = 1.0;
+        await video.play();
+        tapSound.classList.add('hidden');
+        updateSoundButton();
+      } catch (e) {
+        console.log('Sound enable blocked until user interaction.', e);
+      }
+    }
+
+    soundToggle.addEventListener('click', async () => {
+      if (video.muted) {
+        await enableSound();
+      } else {
+        video.muted = true;
+        updateSoundButton();
+      }
+    });
+
+    tapSoundBadge.addEventListener('click', async () => {
+      await enableSound();
+    });
+
+    video.addEventListener('click', async () => {
+      if (video.muted) {
+        await enableSound();
+      }
+    });
+
+    updateSoundButton();
+  </script>
 
 </body>
 </html>
