@@ -1,1 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DMF Demo Feed</title>
 
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+      scroll-behavior: smooth;
+    }
+
+    .feed {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .slide {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      scroll-snap-align: start;
+      background: #000;
+    }
+
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .bottom-fade {
+      position: absolute;
+      bottom: 0;
+      height: 42%;
+      width: 100%;
+      background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0));
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .logo-overlay {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      z-index: 20;
+      padding: 10px 14px;
+      border-radius: 18px;
+      background: rgba(70, 55, 55, 0.38);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
+      overflow: hidden;
+    }
+
+    .logo-overlay img {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      display: block;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.45);
+      flex-shrink: 0;
+      background: #111;
+    }
+
+    .logo-overlay span {
+      color: #fff;
+      font-weight: 800;
+      font-size: 14px;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.55);
+      white-space: nowrap;
+    }
+
+    .sound-toggle {
+      position: fixed;
+      top: 18px;
+      right: 16px;
+      z-index: 30;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+
+    .tap-sound {
+      position: fixed;
+      inset: 0;
+      z-index: 29;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .tap-sound.hidden {
+      display: none;
+    }
+
+    .tap-sound-badge {
+      pointer-events: auto;
+      background: rgba(0,0,0,0.58);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+
+    .side-actions {
+      position: absolute;
+      right: 12px;
+      bottom: 122px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      z-index: 20;
+    }
+
+    .profile {
+      position: relative;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid #fff;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      background: rgba(0,0,0,0.25);
+    }
+
+    .profile img {
+      width: 56px;
+      height: 56px;
+      display: block;
+      background: #111;
+    }
+
+    .follow {
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e01919;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
+    }
+
+    .action {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+      text-decoration: none;
+    }
+
+    .action-btn {
+      width: 52px;
+      height: 52px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.42);
+      border: 1px solid rgba(255,255,255,0.14);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      line-height: 1;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+
+    .bottom-info {
+      position: absolute;
+      left: 16px;
+      right: 84px;
+      bottom: 112px;
+      color: #fff;
+      z-index: 20;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .bottom-info .restaurant {
+      font-weight: 900;
+      font-size: 22px;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+
+    .bottom-info .description {
+      font-size: 14px;
+      color: #e6e6e6;
+      line-height: 1.45;
+      max-width: 430px;
+    }
+
+    .order-btn {
+      position: absolute;
+      bottom: 20px;
+      left: 16px;
+      right: 16px;
+      background: linear-gradient(90deg, #ff3b30, #d10000);
+      color: #fff;
+      padding: 18px 20px;
+      border-radius: 18px;
+      font-weight: 900;
+      font-size: 18px;
+      text-align: center;
+      text-decoration: none;
+      box-shadow: 0 14px 40px rgba(217, 52, 43, 0.5);
+      z-index: 20;
+    }
+
+    .swipe-hint {
+      position: absolute;
+      bottom: 96px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 21;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      background: rgba(0,0,0,0.38);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 9px 14px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      animation: floatHint 1.6s ease-in-out infinite;
+    }
+
+    @keyframes floatHint {
+      0% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+      100% { transform: translateX(-50%) translateY(0); }
+    }
+
+    .logo-overlay img.logo-bbq,
+    .profile img.logo-bbq {
+      object-fit: cover;
+      padding: 0;
+      background: transparent;
+      transform: scale(1.18);
+    }
+
+    .logo-overlay img.logo-pizzazz,
+    .profile img.logo-pizzazz {
+      object-fit: contain;
+      padding: 4px;
+      background: #fff;
+      transform: none;
+    }
+
+    @media (max-width: 600px) {
+      .logo-overlay {
+        top: 16px;
+        left: 16px;
+        padding: 9px 12px;
+      }
+
+      .logo-overlay img {
+        width: 40px;
+        height: 40px;
+      }
+
+      .logo-overlay span {
+        font-size: 13px;
+      }
+
+      .sound-toggle {
+        top: 16px;
+        right: 16px;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      .tap-sound-badge {
+        font-size: 16px;
+        padding: 14px 18px;
+      }
+
+      .side-actions {
+        right: 10px;
+        bottom: 120px;
+        gap: 16px;
+      }
+
+      .profile {
+        width: 54px;
+        height: 54px;
+      }
+
+      .profile img {
+        width: 54px;
+        height: 54px;
+      }
+
+      .action-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 22px;
+      }
+
+      .bottom-info {
+        left: 16px;
+        right: 76px;
+        bottom: 110px;
+      }
+
+      .bottom-info .restaurant {
+        font-size: 18px;
+      }
+
+      .bottom-info .description {
+        font-size: 13px;
+      }
+
+      .order-btn {
+        font-size: 18px;
+        padding: 16px 20px;
+      }
+
+      .swipe-hint {
+        bottom: 92px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <button id="soundToggle" class="sound-toggle">🔇 Sound Off</button>
+
+  <div id="tapSound" class="tap-sound">
+    <button id="tapSoundBadge" class="tap-sound-badge">🔊 Tap for sound</button>
+  </div>
+
+  <div class="feed" id="feed">
+
+    <section class="slide">
+      <video class="feed-video" muted loop playsinline preload="auto">
+        <source src="bbq.mp4" type="video/mp4" />
+      </video>
+
+      <div class="bottom-fade"></div>
+
+      <div class="logo-overlay">
+        <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" class="logo-bbq" />
+        <span>Real Smoq'ed BBQ</span>
+      </div>
+
+      <div class="side-actions">
+        <div class="profile">
+          <img src="bbq-logo.png" alt="Real Smoq'ed BBQ profile" class="logo-bbq" />
+          <div class="follow">+</div>
+        </div>
+
+        <a href="#" class="action">
+          <div class="action-btn">❤️</div>
+          <div>1.2K</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">💬</div>
+          <div>184</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">🔖</div>
+          <div>Save</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">↗️</div>
+          <div>Share</div>
+        </a>
+      </div>
+
+      <div class="bottom-info">
+        <div class="restaurant">Real Smoq'ed BBQ</div>
+        <div class="description">
+          Slow-smoked BBQ, sauced ribs, and real comfort food.
+        </div>
+      </div>
+
+      <div class="swipe-hint">Swipe up to explore more restaurants ↑</div>
+
+      <a
+        href="https://realsmoqedbbq.com/menu"
+        class="order-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Order Now
+      </a>
+    </section>
+
+    <section class="slide">
+      <video class="feed-video" muted loop playsinline preload="auto">
+        <source src="pizzazz.mp4" type="video/mp4" />
+      </video>
+
+      <div class="bottom-fade"></div>
+
+      <div class="logo-overlay">
+        <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle logo" class="logo-pizzazz" />
+        <span>Pizzazz on the Circle</span>
+      </div>
+
+      <div class="side-actions">
+        <div class="profile">
+          <img src="pizzazz-logo.WEBP" alt="Pizzazz on the Circle profile" class="logo-pizzazz" />
+          <div class="follow">+</div>
+        </div>
+
+        <a href="#" class="action">
+          <div class="action-btn">❤️</div>
+          <div>986</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">💬</div>
+          <div>127</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">🔖</div>
+          <div>Save</div>
+        </a>
+
+        <a href="#" class="action">
+          <div class="action-btn">↗️</div>
+          <div>Share</div>
+        </a>
+      </div>
+
+      <div class="bottom-info">
+        <div class="restaurant">Pizzazz on the Circle</div>
+        <div class="description">
+          Pizza, pasta, comfort food, and downtown flavor — discover it, then order direct.
+        </div>
+      </div>
+
+      <a
+        href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
+        class="order-btn"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Order Now
+      </a>
+    </section>
+
+  </div>
+
+  <script>
+    const videos = document.querySelectorAll('.feed-video');
+    const slides = document.querySelectorAll('.slide');
+    const soundToggle = document.getElementById('soundToggle');
+    const tapSound = document.getElementById('tapSound');
+    const tapSoundBadge = document.getElementById('tapSoundBadge');
+    const feed = document.getElementById('feed');
+
+    let soundEnabled = false;
+    let activeIndex = 0;
+
+    function updateSoundButton() {
+      soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off';
+    }
+
+    function updateSwipeHint() {
+      const hints = document.querySelectorAll('.swipe-hint');
+      hints.forEach((hint, index) => {
+        hint.style.display = index === 0 ? 'block' : 'none';
+      });
+    }
+
+    function syncVideos() {
+      videos.forEach((video, index) => {
+        if (index === activeIndex) {
+          video.muted = !soundEnabled;
+          video.volume = 1.0;
+          if (video.paused) {
+            video.play().catch(() => {});
+          }
+        } else {
+          video.pause();
+          video.muted = true;
+        }
+      });
+
+      tapSound.classList.toggle('hidden', soundEnabled);
+      updateSoundButton();
+      updateSwipeHint();
+    }
+
+    async function enableSound() {
+      soundEnabled = true;
+      const activeVideo = videos[activeIndex];
+      activeVideo.muted = false;
+      activeVideo.volume = 1.0;
+
+      if (activeVideo.paused) {
+        try {
+          await activeVideo.play();
+        } catch (e) {
+          console.log('Unable to play with sound yet.', e);
+        }
+      }
+
+      tapSound.classList.add('hidden');
+      updateSoundButton();
+    }
+
+    function disableSound() {
+      soundEnabled = false;
+      videos.forEach(video => {
+        video.muted = true;
+      });
+      tapSound.classList.remove('hidden');
+      updateSoundButton();
+    }
+
+    function detectActiveSlide() {
+      let bestIndex = 0;
+      let bestVisible = 0;
+
+      slides.forEach((slide, index) => {
+        const rect = slide.getBoundingClientRect();
+        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+        if (visibleHeight > bestVisible) {
+          bestVisible = visibleHeight;
+          bestIndex = index;
+        }
+      });
+
+      if (bestIndex !== activeIndex) {
+        activeIndex = bestIndex;
+        syncVideos();
+      }
+    }
+
+    soundToggle.addEventListener('click', async () => {
+      if (soundEnabled) {
+        disableSound();
+      } else {
+        await enableSound();
+      }
+    });
+
+    tapSoundBadge.addEventListener('click', async () => {
+      await enableSound();
+    });
+
+    videos.forEach((video, index) => {
+      video.addEventListener('click', async () => {
+        activeIndex = index;
+        if (!soundEnabled) {
+          await enableSound();
+        }
+      });
+    });
+
+    feed.addEventListener('scroll', detectActiveSlide);
+
+    window.addEventListener('load', () => {
+      detectActiveSlide();
+      syncVideos();
+    });
+  </script>
+
+</body>
+</html>
