@@ -1,180 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DMF Demo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body {
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
+      padding: 0;
       background: #000;
-      font-family: Arial, sans-serif;
-      color: white;
-      display: flex;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .phone-frame {
-      position: relative;
-      width: 100%;
-      max-width: 430px;
-      background: #000;
-      border-radius: 24px;
       overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
 
-    .video-wrap {
+    .video-container {
       position: relative;
-      width: 100%;
+      width: 100vw;
+      height: 100vh;
       background: #000;
     }
 
     video {
-      display: block;
-      width: 100%;
-      height: auto;
-      background: #000;
-    }
-
-    .top-label {
-      position: absolute;
-      top: 16px;
-      left: 20px;
-      right: 20px;
-      text-align: center;
-      font-size: 28px;
-      font-weight: 700;
-      z-index: 3;
-      text-shadow: 0 2px 8px rgba(0,0,0,.65);
-    }
-
-    .side-ui {
-      position: absolute;
-      right: 14px;
-      bottom: 140px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      z-index: 3;
-    }
-
-    .logo-circle {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 3px solid white;
-      background: #111;
-    }
-
-    .logo-circle img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .icon-block {
-      text-align: center;
-      font-size: 14px;
-      color: white;
-      text-shadow: 0 2px 8px rgba(0,0,0,.6);
-    }
-
-    .icon {
-      font-size: 30px;
-      line-height: 1;
       display: block;
-      margin-bottom: 6px;
     }
 
-    .order-wrap {
+    .logo-overlay {
       position: absolute;
-      left: 16px;
-      right: 16px;
-      bottom: 18px;
-      z-index: 3;
+      top: 20px;
+      left: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      z-index: 10;
+    }
+
+    .logo-overlay img {
+      height: 52px;
+      width: auto;
+      display: block;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.55);
+    }
+
+    .logo-overlay span {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 800;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
     }
 
     .order-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      background: #e32020;
-      color: white;
+      position: absolute;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, #ff2a2a 0%, #c00000 100%);
+      color: #fff;
+      padding: 16px 24px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 800;
       text-decoration: none;
-      font-weight: 700;
-      font-size: 20px;
-      padding: 16px 20px;
-      border-radius: 14px;
-      box-shadow: 0 8px 20px rgba(0,0,0,.35);
+      box-shadow: 0 10px 24px rgba(180,0,0,0.35);
+      z-index: 10;
     }
 
-    .meta-bar {
-      margin-top: 10px;
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      flex-wrap: wrap;
-      font-size: 13px;
-      color: #ddd;
-      text-shadow: 0 2px 8px rgba(0,0,0,.5);
-    }
+    @media (max-width: 600px) {
+      .logo-overlay {
+        top: 16px;
+        left: 16px;
+      }
 
-    .back {
-      display: inline-block;
-      margin: 18px auto 0;
-      color: #aaa;
-      text-decoration: none;
-      font-size: 16px;
+      .logo-overlay img {
+        height: 44px;
+      }
+
+      .logo-overlay span {
+        font-size: 13px;
+      }
+
+      .order-btn {
+        width: calc(100% - 32px);
+        text-align: center;
+        bottom: 20px;
+        font-size: 17px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="phone-frame">
-    <div class="video-wrap">
-      <div class="top-label">Watch. Tap. Order.</div>
 
-      <video controls playsinline>
-        <source src="demo-video.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+  <div class="video-container">
+    <video autoplay muted loop playsinline>
+      <source src="demo-video.mp4" type="video/mp4" />
+    </video>
 
-      <div class="side-ui">
-        <div class="logo-circle">
-          <img src="phone-mockup.png" alt="Restaurant logo">
-        </div>
-
-        <div class="icon-block">
-          <span class="icon">❤</span>
-          128
-        </div>
-
-        <div class="icon-block">
-          <span class="icon">💬</span>
-          24
-        </div>
-
-        <div class="icon-block">
-          <span class="icon">↗</span>
-          Share
-        </div>
-      </div>
-
-      <div class="order-wrap">
-        <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">ORDER NOW</a>
-        <div class="meta-bar">
-          <span>Direct from restaurant</span>
-          <span>15–25 min</span>
-          <span>Cleveland, OH</span>
-        </div>
-      </div>
+    <div class="logo-overlay">
+      <img src="bbq-logo.png" alt="Restaurant Logo" />
+      <span>Real Smoq'ed BBQ</span>
     </div>
 
-    <div style="text-align:center;">
-      <a href="index.html" class="back">← Back</a>
-    </div>
+    <a href="./restaurant.html" class="order-btn">Order Now</a>
   </div>
+
 </body>
 </html>
