@@ -6,7 +6,9 @@
   <title>DMF Demo Feed</title>
 
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       margin: 0;
@@ -52,6 +54,27 @@
       pointer-events: none;
     }
 
+    .top-nav {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 50;
+    }
+
+    .back-btn {
+      display: inline-block;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+
     .logo-overlay {
       position: absolute;
       top: 16px;
@@ -92,7 +115,7 @@
       position: fixed;
       top: 18px;
       right: 16px;
-      z-index: 40;
+      z-index: 50;
       border: 1px solid rgba(255,255,255,0.18);
       background: rgba(0,0,0,0.42);
       color: #fff;
@@ -108,7 +131,7 @@
     .tap-sound {
       position: fixed;
       inset: 0;
-      z-index: 39;
+      z-index: 49;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -131,6 +154,30 @@
       backdrop-filter: blur(10px);
       box-shadow: 0 12px 30px rgba(0,0,0,0.35);
       cursor: pointer;
+    }
+
+    .demo-intro {
+      position: absolute;
+      top: 86px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(90%, 680px);
+      text-align: center;
+      z-index: 21;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .demo-intro h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .demo-intro p {
+      margin: 0;
+      font-size: 14px;
+      color: #d8d8d8;
     }
 
     .side-actions {
@@ -288,7 +335,93 @@
       transform: none;
     }
 
+    .pitch-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: #000;
+      padding: 28px;
+    }
+
+    .pitch-screen.dark {
+      background: #050505;
+    }
+
+    .pitch-screen.red {
+      background: radial-gradient(circle at center, rgba(100,0,0,0.35), #000 70%);
+    }
+
+    .pitch-inner {
+      max-width: 760px;
+      width: 100%;
+    }
+
+    .pitch-inner h1 {
+      font-size: clamp(34px, 7vw, 58px);
+      line-height: 1.02;
+      margin: 0 0 18px;
+      letter-spacing: -0.04em;
+    }
+
+    .pitch-inner p {
+      font-size: 20px;
+      line-height: 1.65;
+      color: #d8d8d8;
+      margin: 0;
+    }
+
+    .pitch-inner strong {
+      color: #fff;
+    }
+
+    .pitch-scroll {
+      margin-top: 22px;
+      font-size: 14px;
+      color: #aaa;
+      font-weight: 700;
+    }
+
+    .offer {
+      margin-top: 24px;
+      font-size: 34px;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.2;
+    }
+
+    .offer-sub {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #cfcfcf;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 16px 24px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #ff2a2a, #c00000);
+      color: #fff;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 25px rgba(224,25,25,0.4);
+      font-size: 16px;
+    }
+
     @media (max-width: 600px) {
+      .demo-intro {
+        top: 84px;
+      }
+
+      .demo-intro h1 {
+        font-size: 22px;
+      }
+
+      .demo-intro p {
+        font-size: 13px;
+      }
+
       .logo-overlay {
         top: 16px;
         left: 16px;
@@ -360,11 +493,27 @@
       .swipe-hint {
         bottom: 92px;
       }
+
+      .pitch-inner p {
+        font-size: 17px;
+      }
+
+      .offer {
+        font-size: 28px;
+      }
+
+      .offer-sub {
+        font-size: 16px;
+      }
     }
   </style>
 </head>
 
 <body>
+
+  <div class="top-nav">
+    <a href="./index.html" class="back-btn">← Back to DMF</a>
+  </div>
 
   <button id="soundToggle" class="sound-toggle" type="button">🔇 Sound Off</button>
 
@@ -374,12 +523,18 @@
 
   <div class="feed" id="feed">
 
+    <!-- Screen 1 -->
     <section class="slide">
       <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./bbq.mp4" type="video/mp4" />
       </video>
 
       <div class="bottom-fade"></div>
+
+      <div class="demo-intro">
+        <h1>This is how customers discover restaurants now</h1>
+        <p>Scroll to experience the DMF feed</p>
+      </div>
 
       <div class="logo-overlay">
         <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" class="logo-bbq" />
@@ -410,6 +565,7 @@
       </a>
     </section>
 
+    <!-- Screen 2 -->
     <section class="slide">
       <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./pizzazz.mp4" type="video/mp4" />
@@ -442,6 +598,59 @@
       <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" class="order-btn" target="_blank" rel="noopener noreferrer">
         Order Now
       </a>
+    </section>
+
+    <!-- Screen 3 -->
+    <section class="slide pitch-screen">
+      <div class="pitch-inner">
+        <h1>Does this make sense?</h1>
+        <p>
+          Customers aren’t opening apps to decide anymore.<br><br>
+          They’re deciding right here.<br>
+          On video. On scroll.<br><br>
+          By the time they open an app…<br>
+          <strong>they already chose the restaurant.</strong>
+        </p>
+        <div class="pitch-scroll">Keep scrolling ↓</div>
+      </div>
+    </section>
+
+    <!-- Screen 4 -->
+    <section class="slide pitch-screen dark">
+      <div class="pitch-inner">
+        <h1>This is what DMF does</h1>
+        <p>
+          We take that moment…<br><br>
+          and turn it into a direct order.<br><br>
+          No middleman.<br>
+          No commissions.<br>
+          No lost customer.<br><br>
+          <strong>Discovery → Order → You</strong>
+        </p>
+      </div>
+    </section>
+
+    <!-- Screen 5 -->
+    <section class="slide pitch-screen red">
+      <div class="pitch-inner">
+        <h1>Want your restaurant here?</h1>
+        <p>
+          Be one of the first restaurants customers discover.
+        </p>
+
+        <div class="offer">
+          $1,500<br>
+          Founding 10: $1,000
+        </div>
+
+        <div class="offer-sub">
+          Platform access: $199/month
+        </div>
+
+        <a href="./restaurant.html" class="cta-btn">
+          Become a Founding Restaurant
+        </a>
+      </div>
     </section>
 
   </div>
@@ -499,7 +708,17 @@
       });
 
       activeIndex = bestIndex;
-      playVideoAt(activeIndex);
+
+      if (activeIndex < videos.length) {
+        playVideoAt(activeIndex);
+      } else {
+        videos.forEach(v => {
+          v.pause();
+          v.muted = true;
+        });
+        updateSwipeHint();
+        updateSoundButton();
+      }
     }
 
     async function enableSound() {
@@ -507,14 +726,16 @@
       tapSound.classList.add('hidden');
       tapSound.style.display = 'none';
 
-      const video = videos[activeIndex];
-      video.muted = false;
-      video.volume = 1;
+      if (activeIndex < videos.length) {
+        const video = videos[activeIndex];
+        video.muted = false;
+        video.volume = 1;
 
-      try {
-        await video.play();
-      } catch (e) {
-        console.log('Sound unlock failed', e);
+        try {
+          await video.play();
+        } catch (e) {
+          console.log('Sound unlock failed', e);
+        }
       }
 
       updateSoundButton();
@@ -544,7 +765,7 @@
       e.stopPropagation();
       if (soundEnabled) {
         disableSound();
-        playVideoAt(activeIndex);
+        detectActiveSlide();
       } else {
         await enableSound();
       }
