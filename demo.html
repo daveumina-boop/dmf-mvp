@@ -375,7 +375,7 @@
   <div class="feed" id="feed">
 
     <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="none">
+      <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./bbq.mp4" type="video/mp4" />
       </video>
 
@@ -411,7 +411,7 @@
     </section>
 
     <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="none">
+      <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./pizzazz.mp4" type="video/mp4" />
       </video>
 
@@ -468,12 +468,11 @@
       });
     }
 
-    function playActiveVideo() {
-      videos.forEach((video, index) => {
-        if (index === activeIndex) {
+    function playVideoAt(index) {
+      videos.forEach((video, i) => {
+        if (i === index) {
           video.muted = !soundEnabled;
           video.volume = 1;
-          video.load();
           const p = video.play();
           if (p) p.catch(() => {});
         } else {
@@ -481,9 +480,26 @@
           video.muted = true;
         }
       });
-
-      updateSoundButton();
       updateSwipeHint();
+      updateSoundButton();
+    }
+
+    function detectActiveSlide() {
+      let bestIndex = 0;
+      let bestVisible = 0;
+
+      slides.forEach((slide, index) => {
+        const rect = slide.getBoundingClientRect();
+        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+        if (visibleHeight > bestVisible) {
+          bestVisible = visibleHeight;
+          bestIndex = index;
+        }
+      });
+
+      activeIndex = bestIndex;
+      playVideoAt(activeIndex);
     }
 
     async function enableSound() {
@@ -512,25 +528,6 @@
       updateSoundButton();
     }
 
-    function detectActiveSlide() {
-      let bestIndex = 0;
-      let bestVisible = 0;
-
-      slides.forEach((slide, index) => {
-        const rect = slide.getBoundingClientRect();
-        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-        if (visibleHeight > bestVisible) {
-          bestVisible = visibleHeight;
-          bestIndex = index;
-        }
-      });
-
-      if (bestIndex !== activeIndex) {
-        activeIndex = bestIndex;
-        playActiveVideo();
-      }
-    }
-
     async function handleEnable(e) {
       e.preventDefault();
       e.stopPropagation();
@@ -547,6 +544,7 @@
       e.stopPropagation();
       if (soundEnabled) {
         disableSound();
+        playVideoAt(activeIndex);
       } else {
         await enableSound();
       }
@@ -559,6 +557,8 @@
         activeIndex = index;
         if (!soundEnabled) {
           await enableSound();
+        } else {
+          playVideoAt(activeIndex);
         }
       });
     });
@@ -567,7 +567,6 @@
 
     window.addEventListener('load', () => {
       detectActiveSlide();
-      playActiveVideo();
     });
   </script>
 
