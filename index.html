@@ -17,6 +17,7 @@
   <meta name="twitter:title" content="Your next customers aren’t on delivery apps. They’re watching." />
   <meta name="twitter:description" content="DMF turns food videos into new, commission-free customers." />
   <meta name="twitter:image" content="https://daveumina-boop.github.io/dmf-mvp/phone-mockup.png" />
+
   <style>
     * {
       box-sizing: border-box;
@@ -181,21 +182,25 @@
     }
 
     .hero-card {
+      display: block;
       background: linear-gradient(180deg, rgba(50, 0, 0, 0.18) 0%, rgba(255,255,255,0.04) 100%);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 28px;
       padding: 18px;
       box-shadow: 0 20px 46px rgba(0,0,0,0.38);
       text-align: center;
+      overflow: hidden;
     }
 
-    .hero-card img {
+    .hero-video {
       width: 100%;
       max-width: 430px;
       display: block;
       margin: 0 auto;
       border-radius: 24px;
       box-shadow: 0 18px 44px rgba(0,0,0,0.45);
+      object-fit: cover;
+      background: #000;
     }
 
     .divider {
@@ -508,9 +513,11 @@
         </div>
       </div>
 
-      <div class="hero-card">
-        <img src="hero-share.jpg" alt="DMF app preview" />
-      </div>
+      <a href="./demo.html" class="hero-card">
+        <video class="hero-video" autoplay muted loop playsinline preload="metadata">
+          <source src="./bbq.mp4" type="video/mp4" />
+        </video>
+      </a>
     </section>
 
     <div class="divider"></div>
