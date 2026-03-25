@@ -375,7 +375,7 @@
   <div class="feed" id="feed">
 
     <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="auto">
+      <video class="feed-video" muted loop playsinline preload="none">
         <source src="./bbq.mp4" type="video/mp4" />
       </video>
 
@@ -411,7 +411,7 @@
     </section>
 
     <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="auto">
+      <video class="feed-video" muted loop playsinline preload="none">
         <source src="./pizzazz.mp4" type="video/mp4" />
       </video>
 
@@ -468,37 +468,39 @@
       });
     }
 
-    function syncVideos() {
+    function playActiveVideo() {
       videos.forEach((video, index) => {
         if (index === activeIndex) {
           video.muted = !soundEnabled;
           video.volume = 1;
-          if (video.paused) {
-            const p = video.play();
-            if (p) p.catch(() => {});
-          }
+          video.load();
+          const p = video.play();
+          if (p) p.catch(() => {});
         } else {
           video.pause();
           video.muted = true;
         }
       });
 
-      tapSound.classList.toggle('hidden', soundEnabled);
       updateSoundButton();
       updateSwipeHint();
     }
 
     async function enableSound() {
       soundEnabled = true;
+      tapSound.classList.add('hidden');
+      tapSound.style.display = 'none';
+
       const video = videos[activeIndex];
       video.muted = false;
       video.volume = 1;
+
       try {
         await video.play();
       } catch (e) {
         console.log('Sound unlock failed', e);
       }
-      tapSound.classList.add('hidden');
+
       updateSoundButton();
     }
 
@@ -506,6 +508,7 @@
       soundEnabled = false;
       videos.forEach(v => v.muted = true);
       tapSound.classList.remove('hidden');
+      tapSound.style.display = 'flex';
       updateSoundButton();
     }
 
@@ -524,7 +527,7 @@
 
       if (bestIndex !== activeIndex) {
         activeIndex = bestIndex;
-        syncVideos();
+        playActiveVideo();
       }
     }
 
@@ -564,7 +567,7 @@
 
     window.addEventListener('load', () => {
       detectActiveSlide();
-      syncVideos();
+      playActiveVideo();
     });
   </script>
 
