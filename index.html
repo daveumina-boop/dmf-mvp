@@ -5,29 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>DMF — DeliverMeFood</title>
-  <!-- SHARE PREVIEW -->
-<meta property="og:title" content="DMF — DeliverMeFood" />
-<meta property="og:description" content="Turn food videos into orders." />
-<meta property="og:image" content="https://daveumina-boop.github.io/dmf-mvp/hero-share.jpg" />
-<meta property="og:url" content="https://daveumina-boop.github.io/dmf-mvp/" />
-<meta property="og:type" content="website" />
+  <meta name="description" content="Your next customers aren’t on delivery apps. They’re watching. DMF turns food videos into new, commission-free customers." />
 
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:title" content="DMF — DeliverMeFood" />
-<meta name="twitter:description" content="Turn food videos into orders." />
-<meta name="twitter:image" content="https://daveumina-boop.github.io/dmf-mvp/hero-share.jpg" />
-  <meta name="description" content="DMF delivers new customers through video-driven restaurant discovery and commission-free ordering." />
-
-  <meta property="og:title" content="DMF — DeliverMeFood" />
-  <meta property="og:description" content="DMF delivers new customers through video-driven restaurant discovery and commission-free ordering." />
-  <meta property="og:image" content="https://daveumina-boop.github.io/dmf-mvp/share-image.jpg" />
+  <meta property="og:title" content="Your next customers aren’t on delivery apps. They’re watching." />
+  <meta property="og:description" content="DMF turns food videos into new, commission-free customers." />
+  <meta property="og:image" content="https://daveumina-boop.github.io/dmf-mvp/hero-share.jpg" />
   <meta property="og:url" content="https://daveumina-boop.github.io/dmf-mvp/" />
   <meta property="og:type" content="website" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="DMF — DeliverMeFood" />
-  <meta name="twitter:description" content="DMF delivers new customers through video-driven restaurant discovery and commission-free ordering." />
-  <meta name="twitter:image" content="https://daveumina-boop.github.io/dmf-mvp/share-image.jpg" />
+  <meta name="twitter:title" content="Your next customers aren’t on delivery apps. They’re watching." />
+  <meta name="twitter:description" content="DMF turns food videos into new, commission-free customers." />
+  <meta name="twitter:image" content="https://daveumina-boop.github.io/dmf-mvp/hero-share.jpg" />
 
   <style>
     * {
@@ -46,7 +35,7 @@
     body {
       background:
         radial-gradient(circle at top center, rgba(224, 25, 25, 0.18), transparent 30%),
-        radial-gradient(circle at top right, rgba(180, 180, 180, 0.08), transparent 24%),
+        radial-gradient(circle at top right, rgba(180, 180, 180, 0.06), transparent 22%),
         #000;
     }
 
@@ -65,7 +54,7 @@
       display: flex;
       align-items: center;
       gap: 14px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
     }
 
     .brand {
@@ -107,9 +96,9 @@
     .hero {
       display: grid;
       grid-template-columns: 1.02fr 0.98fr;
-      gap: 28px;
+      gap: 30px;
       align-items: center;
-      margin-bottom: 52px;
+      margin-bottom: 56px;
     }
 
     .eyebrow {
@@ -127,31 +116,36 @@
     }
 
     h1 {
-      font-size: clamp(48px, 7vw, 82px);
+      font-size: clamp(44px, 7vw, 82px);
       line-height: 0.94;
-      margin: 0 0 16px;
+      margin: 0 0 14px;
       letter-spacing: -0.05em;
       max-width: 780px;
     }
 
     .hero-subtext {
-      font-size: 19px;
-      line-height: 1.55;
-      color: #d0d0d0;
-      max-width: 680px;
-      margin: 0 0 18px;
-    }
-
-    .hero-subtext strong {
+      font-size: 22px;
+      line-height: 1.35;
       color: #fff;
+      max-width: 700px;
+      margin: 0 0 14px;
+      font-weight: 700;
     }
 
     .hero-note {
-      font-size: 14px;
+      font-size: 17px;
+      line-height: 1.5;
+      color: #d0d0d0;
+      max-width: 640px;
+      margin: 0 0 22px;
+    }
+
+    .hero-support {
+      font-size: 15px;
       color: #9e9e9e;
       line-height: 1.5;
-      max-width: 650px;
-      margin-bottom: 22px;
+      max-width: 620px;
+      margin-bottom: 24px;
     }
 
     .button-row {
@@ -216,7 +210,7 @@
 
     .section-header {
       text-align: center;
-      margin-bottom: 26px;
+      margin-bottom: 28px;
     }
 
     .section-header h2 {
@@ -234,9 +228,27 @@
       max-width: 860px;
     }
 
+    .truth-block {
+      max-width: 920px;
+      margin: 0 auto;
+      text-align: center;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 32px 24px;
+      box-shadow: 0 14px 34px rgba(0,0,0,0.32);
+    }
+
+    .truth-block p {
+      margin: 0;
+      color: #d8d8d8;
+      font-size: 20px;
+      line-height: 1.6;
+    }
+
     .sales-grid {
       display: grid;
-      grid-template-columns: 1.3fr 0.85fr 0.85fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 22px;
       align-items: stretch;
     }
@@ -252,8 +264,8 @@
 
     .sales-card h3 {
       margin: 0 0 10px;
-      font-size: 28px;
-      line-height: 1.1;
+      font-size: 30px;
+      line-height: 1.08;
     }
 
     .card-main {
@@ -307,12 +319,6 @@
       box-shadow: 0 18px 42px rgba(120,0,0,0.25);
     }
 
-    .small-card {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
     .flow-block {
       text-align: center;
       margin-top: 24px;
@@ -339,46 +345,31 @@
       max-width: 780px;
     }
 
-    .reason-block {
+    .problem-block {
       max-width: 920px;
       margin: 0 auto;
       text-align: center;
       background: rgba(255,255,255,0.04);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 24px;
-      padding: 30px 22px;
+      padding: 32px 24px;
       box-shadow: 0 14px 34px rgba(0,0,0,0.32);
     }
 
-    .reason-block h2 {
+    .problem-block h2 {
       margin: 0 0 14px;
       font-size: clamp(30px, 5vw, 50px);
       line-height: 1.05;
     }
 
-    .reason-lines {
-      display: grid;
-      gap: 12px;
-      max-width: 760px;
-      margin: 0 auto 10px;
-    }
-
-    .reason-line {
+    .problem-block p {
+      margin: 0;
       color: #d8d8d8;
-      font-size: 18px;
-      line-height: 1.5;
-    }
-
-    .reason-line strong {
-      color: #fff;
-    }
-
-    .reason-final {
-      margin-top: 16px;
-      font-size: 22px;
-      font-weight: 800;
-      color: #79ff9d;
-      line-height: 1.35;
+      font-size: 19px;
+      line-height: 1.65;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .cta-panel {
@@ -445,13 +436,15 @@
       }
 
       h1 {
-        font-size: 60px;
+        font-size: 56px;
       }
 
       .hero-subtext,
+      .hero-note,
       .section-header p,
+      .problem-block p,
+      .truth-block p,
       .cta-panel p,
-      .reason-line,
       .flow-block p {
         font-size: 17px;
       }
@@ -469,13 +462,10 @@
       }
 
       .sales-card,
-      .reason-block,
+      .truth-block,
+      .problem-block,
       .cta-panel {
         border-radius: 20px;
-      }
-
-      .reason-final {
-        font-size: 20px;
       }
     }
   </style>
@@ -499,25 +489,28 @@
       <div>
         <div class="eyebrow">Restaurant Discovery Platform</div>
 
-        <h1>DMF delivers new customers.</h1>
+        <h1>Your next customers aren’t on delivery apps.<br>They’re watching.</h1>
 
         <p class="hero-subtext">
-          Customers discover food through video and order directly from the restaurant.
-          <strong>Restaurants should be discovered first — then delivered.</strong>
+          DMF turns food videos into direct, commission-free orders.
         </p>
 
-        <div class="hero-note">
-          Commission-free ordering. Video-driven demand. Direct restaurant relationships.
+        <p class="hero-note">
+          Restaurants should be discovered first — then delivered.
+        </p>
+
+        <div class="hero-support">
+          See how restaurants turn views into orders.
         </div>
 
         <div class="button-row">
-          <a href="./demo.html" class="btn btn-primary">Watch Demo</a>
+          <a href="./demo.html" class="btn btn-primary">Watch the Demo →</a>
           <a href="./restaurant.html" class="btn btn-secondary">Become a Founding Restaurant</a>
         </div>
       </div>
 
       <div class="hero-card">
-        <img src="phone-mockup.png" alt="DMF app preview" />
+        <img src="hero-share.jpg" alt="DMF app preview" />
       </div>
     </section>
 
@@ -525,59 +518,78 @@
 
     <section class="section">
       <div class="section-header">
-        <h2>Restaurants Should Win — Here’s How</h2>
+        <h2>This is what’s happening right now</h2>
+      </div>
+
+      <div class="truth-block">
         <p>
-          <strong>DMF delivers new customers.</strong><br>
-          Commission-free. Demand-driven. Direct.
+          Customers don’t discover restaurants on delivery apps.<br><br>
+          They discover food on their phones.<br>
+          On video.<br>
+          On scroll.<br><br>
+          By the time they reach an app, they already know what they want.
         </p>
-      </div>
-
-      <div class="sales-grid">
-        <div class="sales-card main-card">
-          <h3>What DMF Does</h3>
-          <p class="card-main">Deliver new customers to your restaurant</p>
-          <ul>
-            <li>Video-driven discovery that creates demand</li>
-            <li>Commission-free ordering</li>
-            <li>Customers order directly from your restaurant</li>
-            <li>You keep the customer relationship</li>
-            <li>You keep more of the order</li>
-          </ul>
-          <div class="card-note green">Own the customer. Keep the margin.</div>
-        </div>
-
-        <div class="sales-card small-card">
-          <h3>What You’re Avoiding</h3>
-          <p class="card-main">Paying up to 35% to rent your own customers</p>
-          <div class="card-note gray">That’s money leaving the restaurant every time the same customer comes back.</div>
-        </div>
-
-        <div class="sales-card small-card">
-          <h3>Delivery Apps</h3>
-          <p class="card-main">They control the customer and charge you every time</p>
-          <div class="card-note red">DMF is built to create demand first — not recycle customers you already had.</div>
-        </div>
-      </div>
-
-      <div class="flow-block">
-        <div class="flow-pill">Discovery → Order → Fulfillment</div>
-        <p>DMF creates demand first — then turns it into direct restaurant orders.</p>
       </div>
     </section>
 
     <div class="divider"></div>
 
     <section class="section">
-      <div class="reason-block">
-        <h2>Why This Matters</h2>
+      <div class="sales-grid">
 
-        <div class="reason-lines">
-          <div class="reason-line">Most app orders are customers who already know your restaurant.</div>
-          <div class="reason-line">You pay again and again just to rent them back.</div>
-          <div class="reason-line"><strong>DMF is built to bring you new customers — commission-free.</strong></div>
+        <div class="sales-card">
+          <h3>Software</h3>
+          <p class="card-main">Manage your customers</p>
+          <ul>
+            <li>Websites & online ordering</li>
+            <li>Loyalty & email marketing</li>
+            <li>Customer data ownership</li>
+          </ul>
+          <div class="card-note gray">No built-in demand</div>
         </div>
 
-        <div class="reason-final">New customers. No commissions. Real growth.</div>
+        <div class="sales-card">
+          <h3>Delivery Apps</h3>
+          <p class="card-main">Charge you for your own customers</p>
+          <ul>
+            <li>Capture the order</li>
+            <li>Own the customer</li>
+            <li>Charge up to 35% every time</li>
+          </ul>
+          <div class="card-note red">You pay again and again</div>
+        </div>
+
+        <div class="sales-card main-card">
+          <h3>DMF</h3>
+          <p class="card-main">Delivers new customers</p>
+          <ul>
+            <li>Video-driven discovery</li>
+            <li>Customers find you first</li>
+            <li>Orders go directly to you</li>
+          </ul>
+          <div class="card-note green">Commission-free growth</div>
+        </div>
+
+      </div>
+
+      <div class="flow-block">
+        <div class="flow-pill">Discovery → Direct Order → Fulfillment</div>
+        <p>DMF creates demand first — then converts it into direct restaurant orders.</p>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section">
+      <div class="problem-block">
+        <h2>The problem isn’t delivery. It’s discovery.</h2>
+        <p>
+          Delivery apps don’t create demand.<br><br>
+          They capture it.<br><br>
+          They take customers who already chose your restaurant and charge you to serve them.<br><br>
+          DMF flips that.<br><br>
+          We create the demand first, then send the order directly to you.
+        </p>
       </div>
     </section>
 
@@ -585,14 +597,13 @@
 
     <section class="section">
       <div class="cta-panel">
-        <h2>Become a Founding Restaurant</h2>
+        <h2>Be one of the first restaurants customers discover.</h2>
         <p>
-          Get early visibility, priority placement, and be part of the first group shaping restaurant discovery in Cleveland.
+          Join the Founding 100 and be part of the platform built for restaurants — not middlemen.
         </p>
 
         <div class="button-row" style="justify-content:center;">
           <a href="./restaurant.html" class="btn btn-primary">Become a Founding Restaurant</a>
-          <a href="./restaurant.html" class="btn btn-secondary">Get More Info</a>
         </div>
       </div>
     </section>
