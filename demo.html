@@ -5,15 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DMF Demo Feed</title>
 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html, body {
       margin: 0;
       padding: 0;
       background: #000;
+      color: #fff;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       overflow: hidden;
     }
@@ -49,7 +51,7 @@
       right: 0;
       bottom: 0;
       height: 42%;
-      background: linear-gradient(to top, rgba(0,0,0,0.80), rgba(0,0,0,0));
+      background: linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0));
       z-index: 10;
       pointer-events: none;
     }
@@ -58,10 +60,16 @@
       position: fixed;
       top: 14px;
       left: 14px;
+      right: 14px;
       z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      pointer-events: none;
     }
 
-    .back-btn {
+    .back-btn,
+    .sound-toggle {
+      pointer-events: auto;
       display: inline-block;
       padding: 10px 14px;
       border-radius: 999px;
@@ -70,9 +78,66 @@
       font-size: 14px;
       font-weight: 800;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.16);
       backdrop-filter: blur(8px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    }
+
+    .sound-toggle {
+      cursor: pointer;
+    }
+
+    .tap-sound {
+      position: fixed;
+      inset: 0;
+      z-index: 49;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .tap-sound.hidden {
+      display: none;
+    }
+
+    .tap-sound-badge {
+      pointer-events: auto;
+      background: rgba(0,0,0,0.62);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+
+    .demo-intro {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(90%, 680px);
+      text-align: center;
+      z-index: 21;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .demo-intro h1 {
+      margin: 0 0 8px;
+      font-size: 30px;
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+
+    .demo-intro p {
+      margin: 0;
+      font-size: 15px;
+      color: #dedede;
     }
 
     .logo-overlay {
@@ -111,79 +176,26 @@
       white-space: nowrap;
     }
 
-    .sound-toggle {
-      position: fixed;
-      top: 18px;
-      right: 16px;
-      z-index: 50;
-      border: 1px solid rgba(255,255,255,0.18);
-      background: rgba(0,0,0,0.42);
-      color: #fff;
-      border-radius: 999px;
-      padding: 10px 14px;
-      font-size: 14px;
-      font-weight: 800;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      cursor: pointer;
+    .logo-overlay img.logo-bbq,
+    .profile img.logo-bbq {
+      object-fit: cover;
+      padding: 0;
+      background: transparent;
+      transform: scale(1.18);
     }
 
-    .tap-sound {
-      position: fixed;
-      inset: 0;
-      z-index: 49;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .tap-sound.hidden {
-      display: none;
-    }
-
-    .tap-sound-badge {
-      pointer-events: auto;
-      background: rgba(0,0,0,0.60);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #fff;
-      padding: 16px 22px;
-      border-radius: 18px;
-      font-size: 18px;
-      font-weight: 800;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      cursor: pointer;
-    }
-
-    .demo-intro {
-      position: absolute;
-      top: 86px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(90%, 680px);
-      text-align: center;
-      z-index: 21;
-      color: #fff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    }
-
-    .demo-intro h1 {
-      margin: 0 0 8px;
-      font-size: 28px;
-      line-height: 1.1;
-    }
-
-    .demo-intro p {
-      margin: 0;
-      font-size: 14px;
-      color: #d8d8d8;
+    .logo-overlay img.logo-pizzazz,
+    .profile img.logo-pizzazz {
+      object-fit: contain;
+      padding: 4px;
+      background: #fff;
+      transform: none;
     }
 
     .side-actions {
       position: absolute;
       right: 12px;
-      bottom: 122px;
+      bottom: 132px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -258,7 +270,7 @@
       position: absolute;
       left: 16px;
       right: 84px;
-      bottom: 112px;
+      bottom: 128px;
       color: #fff;
       z-index: 20;
       text-shadow: 0 2px 10px rgba(0,0,0,0.8);
@@ -280,7 +292,7 @@
 
     .order-btn {
       position: absolute;
-      bottom: 20px;
+      bottom: 54px;
       left: 16px;
       right: 16px;
       background: linear-gradient(90deg, #ff3b30, #d10000);
@@ -297,7 +309,7 @@
 
     .swipe-hint {
       position: absolute;
-      bottom: 96px;
+      bottom: 102px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 21;
@@ -319,107 +331,177 @@
       100% { transform: translateX(-50%) translateY(0); }
     }
 
-    .logo-overlay img.logo-bbq,
-    .profile img.logo-bbq {
-      object-fit: cover;
-      padding: 0;
-      background: transparent;
-      transform: scale(1.18);
-    }
-
-    .logo-overlay img.logo-pizzazz,
-    .profile img.logo-pizzazz {
-      object-fit: contain;
-      padding: 4px;
-      background: #fff;
-      transform: none;
-    }
-
     .pitch-screen {
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: #000;
-      padding: 28px;
+      background:
+        radial-gradient(circle at center, rgba(130,0,0,0.18), transparent 45%),
+        #000;
+      padding: 26px;
     }
 
     .pitch-screen.dark {
-      background: #050505;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.04), transparent 50%),
+        #000;
     }
 
     .pitch-screen.red {
-      background: radial-gradient(circle at center, rgba(100,0,0,0.35), #000 70%);
+      background:
+        radial-gradient(circle at center, rgba(160,0,0,0.28), transparent 46%),
+        #000;
     }
 
     .pitch-inner {
-      max-width: 760px;
+      max-width: 780px;
       width: 100%;
     }
 
+    .eyebrow {
+      display: inline-block;
+      margin-bottom: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #ff9797;
+      border: 1px solid rgba(224,25,25,0.34);
+      background: rgba(224,25,25,0.14);
+    }
+
     .pitch-inner h1 {
-      font-size: clamp(34px, 7vw, 58px);
-      line-height: 1.02;
-      margin: 0 0 18px;
-      letter-spacing: -0.04em;
+      font-size: clamp(38px, 8vw, 68px);
+      line-height: 0.98;
+      margin: 0 0 16px;
+      letter-spacing: -0.05em;
     }
 
-    .pitch-inner p {
-      font-size: 20px;
-      line-height: 1.65;
-      color: #d8d8d8;
-      margin: 0;
+    .lead {
+      font-size: 31px;
+      font-weight: 900;
+      line-height: 1.08;
+      margin: 0 0 14px;
     }
 
-    .pitch-inner strong {
+    .line {
+      font-size: 24px;
+      line-height: 1.35;
+      color: #dfdfdf;
+      margin: 0 0 10px;
+    }
+
+    .line.small {
+      font-size: 18px;
+      color: #bfbfbf;
+    }
+
+    .line.strong,
+    .strong {
       color: #fff;
+      font-weight: 900;
     }
+
+    .line.red,
+    .red {
+      color: #ff4a4a;
+      font-weight: 900;
+    }
+
+    .line.green,
+    .green {
+      color: #7dff9f;
+      font-weight: 900;
+    }
+
+    .space-sm { height: 10px; }
+    .space-md { height: 18px; }
+    .space-lg { height: 28px; }
 
     .pitch-scroll {
-      margin-top: 22px;
-      font-size: 14px;
-      color: #aaa;
-      font-weight: 700;
+      margin-top: 18px;
+      font-size: 15px;
+      color: #b5b5b5;
+      font-weight: 800;
     }
 
-    .offer {
-      margin-top: 24px;
-      font-size: 34px;
+    .money-box {
+      margin: 22px auto 18px;
+      max-width: 560px;
+      border: 1px solid rgba(224,25,25,0.42);
+      background: linear-gradient(180deg, rgba(120,0,0,0.20) 0%, rgba(255,255,255,0.05) 100%);
+      border-radius: 26px;
+      padding: 24px 18px;
+      box-shadow: 0 18px 42px rgba(120,0,0,0.25);
+    }
+
+    .money-price {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      margin: 0 0 10px;
+    }
+
+    .money-sub {
+      font-size: 21px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 8px;
+    }
+
+    .money-monthly {
+      font-size: 28px;
       font-weight: 900;
       color: #fff;
-      line-height: 1.2;
-    }
-
-    .offer-sub {
-      margin-top: 10px;
-      font-size: 18px;
-      color: #cfcfcf;
+      margin: 12px 0 0;
     }
 
     .cta-btn {
       display: inline-block;
-      margin-top: 28px;
-      padding: 16px 24px;
+      margin-top: 26px;
+      padding: 18px 28px;
+      min-width: 300px;
       border-radius: 999px;
-      background: linear-gradient(90deg, #ff2a2a, #c00000);
+      background: linear-gradient(90deg, #ff4c3f, #d01a12);
       color: #fff;
-      font-weight: 800;
+      font-weight: 900;
       text-decoration: none;
-      box-shadow: 0 10px 25px rgba(224,25,25,0.4);
-      font-size: 16px;
+      box-shadow: 0 10px 28px rgba(224,25,25,0.45);
+      font-size: 21px;
+    }
+
+    .micro {
+      margin-top: 18px;
+    }
+
+    .micro p {
+      margin: 6px 0;
+      font-size: 18px;
+      color: #dedede;
+      font-weight: 700;
     }
 
     @media (max-width: 600px) {
+      .back-btn,
+      .sound-toggle {
+        font-size: 13px;
+        padding: 9px 12px;
+      }
+
       .demo-intro {
-        top: 84px;
+        top: 90px;
+        width: min(92%, 620px);
       }
 
       .demo-intro h1 {
-        font-size: 22px;
+        font-size: 24px;
       }
 
       .demo-intro p {
-        font-size: 13px;
+        font-size: 14px;
       }
 
       .logo-overlay {
@@ -437,13 +519,6 @@
         font-size: 13px;
       }
 
-      .sound-toggle {
-        top: 16px;
-        right: 16px;
-        padding: 9px 12px;
-        font-size: 13px;
-      }
-
       .tap-sound-badge {
         font-size: 16px;
         padding: 14px 18px;
@@ -451,7 +526,7 @@
 
       .side-actions {
         right: 10px;
-        bottom: 120px;
+        bottom: 132px;
         gap: 16px;
       }
 
@@ -474,7 +549,7 @@
       .bottom-info {
         left: 16px;
         right: 76px;
-        bottom: 110px;
+        bottom: 126px;
       }
 
       .bottom-info .restaurant {
@@ -486,23 +561,50 @@
       }
 
       .order-btn {
+        bottom: 54px;
         font-size: 18px;
         padding: 16px 20px;
       }
 
       .swipe-hint {
-        bottom: 92px;
+        bottom: 104px;
       }
 
-      .pitch-inner p {
-        font-size: 17px;
+      .pitch-inner h1 {
+        font-size: 44px;
       }
 
-      .offer {
-        font-size: 28px;
+      .lead {
+        font-size: 24px;
       }
 
-      .offer-sub {
+      .line {
+        font-size: 18px;
+      }
+
+      .line.small {
+        font-size: 15px;
+      }
+
+      .money-price {
+        font-size: 42px;
+      }
+
+      .money-sub {
+        font-size: 18px;
+      }
+
+      .money-monthly {
+        font-size: 24px;
+      }
+
+      .cta-btn {
+        min-width: 0;
+        width: 100%;
+        font-size: 19px;
+      }
+
+      .micro p {
         font-size: 16px;
       }
     }
@@ -513,9 +615,8 @@
 
   <div class="top-nav">
     <a href="./index.html" class="back-btn">← Back to DMF</a>
+    <button id="soundToggle" class="sound-toggle" type="button">🔇 Sound Off</button>
   </div>
-
-  <button id="soundToggle" class="sound-toggle" type="button">🔇 Sound Off</button>
 
   <div id="tapSound" class="tap-sound">
     <button id="tapSoundBadge" class="tap-sound-badge" type="button">🔊 Tap for sound</button>
@@ -523,7 +624,7 @@
 
   <div class="feed" id="feed">
 
-    <!-- Screen 1 -->
+    <!-- SCREEN 1 -->
     <section class="slide">
       <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./bbq.mp4" type="video/mp4" />
@@ -565,7 +666,7 @@
       </a>
     </section>
 
-    <!-- Screen 2 -->
+    <!-- SCREEN 2 -->
     <section class="slide">
       <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./pizzazz.mp4" type="video/mp4" />
@@ -600,147 +701,267 @@
       </a>
     </section>
 
-    <!-- SLIDE 3 -->
-<section class="slide pitch-screen">
-  <div class="pitch-inner">
+    <!-- SCREEN 3 -->
+    <section class="slide pitch-screen">
+      <div class="pitch-inner">
+        <div class="eyebrow">What your customers will feel</div>
 
-    <h1>Be honest…</h1>
+        <p class="lead">You just watched that.</p>
+        <p class="lead">Did it make you want to order?</p>
 
-    <p class="big">You just watched that.</p>
-    <p class="big">Did it make you want to order?</p>
+        <div class="space-lg"></div>
 
-    <div class="spacer"></div>
+        <p class="line strong">That’s what your future customers will feel.</p>
 
-    <p>That’s what your future customers will feel.</p>
+        <div class="space-md"></div>
 
-    <div class="spacer"></div>
+        <p class="line red">And with DMF…</p>
+        <p class="line">They don’t leave.</p>
+        <p class="line">They don’t open another app.</p>
 
-    <p class="highlight">And with DMF…</p>
+        <div class="space-md"></div>
 
-    <p>They don’t leave.</p>
-    <p>They don’t open another app.</p>
+        <p class="lead">They order right there.</p>
+        <p class="line small">From your video.</p>
 
-    <div class="spacer"></div>
+        <div class="space-md"></div>
 
-    <p class="big">They order right there.</p>
-    <p>From your video.</p>
+        <p class="line red">And this time…</p>
+        <p class="lead strong">You own the customer.</p>
 
-    <div class="spacer"></div>
+        <div class="space-md"></div>
 
-    <p class="highlight">And this time…</p>
+        <p class="line">They follow you</p>
+        <p class="line">They save your food</p>
+        <p class="line">They come back</p>
+        <p class="line">You can reach them again</p>
 
-    <p class="big strong">You own the customer.</p>
+        <div class="space-md"></div>
 
-    <div class="spacer"></div>
+        <p class="lead">This isn’t just ordering.</p>
+        <p class="lead strong">This is your customer base.</p>
 
-    <p>They follow you</p>
-    <p>They save your food</p>
-    <p>They come back</p>
-    <p>You can reach them again</p>
+        <div class="pitch-scroll">Keep scrolling ↓</div>
+      </div>
+    </section>
 
-    <div class="spacer"></div>
+    <!-- SCREEN 4 -->
+    <section class="slide pitch-screen dark">
+      <div class="pitch-inner">
+        <div class="eyebrow">This shift is already happening</div>
 
-    <p class="big">This isn’t just ordering.</p>
-    <p class="strong">This is your customer base.</p>
+        <p class="line strong">Customers aren’t deciding inside apps anymore.</p>
 
-    <p class="scroll">Keep scrolling ↓</p>
+        <div class="space-md"></div>
 
-  </div>
-</section>
+        <p class="lead">They’re deciding:</p>
+        <p class="line">On video</p>
+        <p class="line">On scroll</p>
+        <p class="line">Before they ever order</p>
 
-<!-- SLIDE 4 -->
-<section class="slide pitch-screen dark">
-  <div class="pitch-inner">
+        <div class="space-lg"></div>
 
-    <h1>This shift is already happening</h1>
+        <p class="line red">And the numbers prove it:</p>
+        <p class="line">Gen Z → Video-first decisions</p>
+        <p class="line">Millennials → Majority influenced</p>
+        <p class="line">Gen X → Rapidly shifting</p>
 
-    <p>Customers aren’t deciding inside apps anymore.</p>
+        <div class="space-lg"></div>
 
-    <div class="spacer"></div>
+        <p class="line">By the time they open a delivery app…</p>
+        <p class="lead strong">the decision is already made.</p>
 
-    <p class="big">They’re deciding:</p>
+        <div class="space-md"></div>
 
-    <p>On video</p>
-    <p>On scroll</p>
-    <p>Before they ever order</p>
+        <p class="line red">And that’s the problem:</p>
+        <p class="lead">Apps don’t create demand.</p>
+        <p class="lead strong">They tax it.</p>
 
-    <div class="spacer"></div>
+        <div class="pitch-scroll">Keep scrolling ↓</div>
+      </div>
+    </section>
 
-    <p class="highlight">And the numbers prove it:</p>
+    <!-- SCREEN 5 -->
+    <section class="slide pitch-screen red">
+      <div class="pitch-inner">
+        <div class="eyebrow">Own the customer. Keep the margin.</div>
 
-    <p>Gen Z → Video-first decisions</p>
-    <p>Millennials → Majority influenced</p>
-    <p>Gen X → Rapidly shifting</p>
+        <p class="lead">Every order through an app…</p>
+        <p class="lead strong">You lose 20–35%.</p>
+        <p class="line">Every time.</p>
+        <p class="line">Forever.</p>
 
-    <div class="spacer"></div>
+        <div class="space-lg"></div>
 
-    <p>By the time they open a delivery app…</p>
+        <p class="line red">DMF flips that.</p>
+        <p class="line">No commissions</p>
+        <p class="line">No middleman</p>
+        <p class="line strong">You own the relationship</p>
 
-    <p class="big strong">the decision is already made.</p>
+        <div class="space-lg"></div>
 
-    <div class="spacer"></div>
+        <p class="line">This is why restaurants feel stuck.</p>
+        <p class="lead">If you’re doing $10,000/month in delivery…</p>
+        <p class="lead strong">$2,000–$3,500 is gone.</p>
 
-    <p class="highlight">And that’s the problem:</p>
+        <div class="space-md"></div>
 
-    <p class="big">Apps don’t create demand.</p>
-    <p class="strong">They tax it.</p>
+        <p class="line green">With DMF:</p>
+        <p class="lead strong">You keep it.</p>
 
-    <p class="scroll">Keep scrolling ↓</p>
+        <div class="money-box">
+          <p class="money-price">$1,500</p>
+          <p class="money-sub">Founding Package</p>
+          <p class="money-sub">Early partners: $1,000</p>
+          <p class="money-monthly">$199/month</p>
+        </div>
 
-  </div>
-</section>
+        <a href="./restaurant.html" class="cta-btn">Get Your First Orders</a>
 
-<!-- SLIDE 5 -->
-<section class="slide pitch-screen red">
-  <div class="pitch-inner">
-
-    <h1>Stop paying for your own customers</h1>
-
-    <div class="spacer"></div>
-
-    <p>Every delivery app order:</p>
-
-    <p>20–35% gone</p>
-    <p>Every time</p>
-    <p>Forever</p>
-
-    <div class="spacer"></div>
-
-    <p class="highlight">DMF flips that.</p>
-
-    <p>No commissions</p>
-    <p>No middleman</p>
-    <p>You own the relationship</p>
-
-    <div class="spacer"></div>
-
-    <p class="big">If you're doing $10,000/month in delivery...</p>
-
-    <p class="big strong">$2,000–$3,500 is gone.</p>
-
-    <div class="spacer"></div>
-
-    <p class="highlight">With DMF:</p>
-
-    <p class="big strong">You keep it.</p>
-
-    <div class="spacer"></div>
-
-    <div class="offer">
-      <p class="price">$1,500</p>
-      <p class="sub">Early partners: $1,000</p>
-      <p class="sub">$199/month</p>
-    </div>
-
-    <a href="./restaurant.html" class="cta-btn">
-      Start Getting Orders
-    </a>
-
-    <div class="micro">
-      <p>No commissions</p>
-      <p>No contracts</p>
-      <p>You own the customer</p>
-    </div>
+        <div class="micro">
+          <p>No commissions</p>
+          <p>No contracts</p>
+          <p>You own the customer</p>
+        </div>
+      </div>
+    </section>
 
   </div>
-</section>
+
+  <script>
+    const videos = document.querySelectorAll('.feed-video');
+    const slides = document.querySelectorAll('.slide');
+    const soundToggle = document.getElementById('soundToggle');
+    const tapSound = document.getElementById('tapSound');
+    const tapSoundBadge = document.getElementById('tapSoundBadge');
+    const feed = document.getElementById('feed');
+
+    let soundEnabled = false;
+    let activeIndex = 0;
+
+    function updateSoundButton() {
+      soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off';
+    }
+
+    function updateSwipeHint() {
+      const hints = document.querySelectorAll('.swipe-hint');
+      hints.forEach((hint, index) => {
+        hint.style.display = index === 0 ? 'block' : 'none';
+      });
+    }
+
+    function playVideoAt(index) {
+      videos.forEach((video, i) => {
+        if (i === index) {
+          video.muted = !soundEnabled;
+          video.volume = 1;
+          const p = video.play();
+          if (p) p.catch(() => {});
+        } else {
+          video.pause();
+          video.muted = true;
+        }
+      });
+      updateSwipeHint();
+      updateSoundButton();
+    }
+
+    function detectActiveSlide() {
+      let bestIndex = 0;
+      let bestVisible = 0;
+
+      slides.forEach((slide, index) => {
+        const rect = slide.getBoundingClientRect();
+        const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+        if (visibleHeight > bestVisible) {
+          bestVisible = visibleHeight;
+          bestIndex = index;
+        }
+      });
+
+      activeIndex = bestIndex;
+
+      if (activeIndex < videos.length) {
+        playVideoAt(activeIndex);
+      } else {
+        videos.forEach(v => {
+          v.pause();
+          v.muted = true;
+        });
+        updateSwipeHint();
+        updateSoundButton();
+      }
+    }
+
+    async function enableSound() {
+      soundEnabled = true;
+      tapSound.classList.add('hidden');
+      tapSound.style.display = 'none';
+
+      if (activeIndex < videos.length) {
+        const video = videos[activeIndex];
+        video.muted = false;
+        video.volume = 1;
+        try {
+          await video.play();
+        } catch (e) {
+          console.log('Sound unlock failed', e);
+        }
+      }
+
+      updateSoundButton();
+    }
+
+    function disableSound() {
+      soundEnabled = false;
+      videos.forEach(v => v.muted = true);
+      tapSound.classList.remove('hidden');
+      tapSound.style.display = 'flex';
+      updateSoundButton();
+    }
+
+    async function handleEnable(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      await enableSound();
+    }
+
+    function bindPress(el, fn) {
+      el.addEventListener('click', fn);
+      el.addEventListener('touchstart', fn, { passive: false });
+    }
+
+    bindPress(soundToggle, async (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (soundEnabled) {
+        disableSound();
+        detectActiveSlide();
+      } else {
+        await enableSound();
+      }
+    });
+
+    bindPress(tapSoundBadge, handleEnable);
+
+    videos.forEach((video, index) => {
+      bindPress(video, async () => {
+        activeIndex = index;
+        if (!soundEnabled) {
+          await enableSound();
+        } else {
+          playVideoAt(activeIndex);
+        }
+      });
+    });
+
+    feed.addEventListener('scroll', detectActiveSlide);
+
+    window.addEventListener('load', () => {
+      detectActiveSlide();
+    });
+  </script>
+
+</body>
+</html>
