@@ -26,6 +26,7 @@
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
+      padding-bottom: 120px;
     }
 
     .slide {
@@ -117,10 +118,10 @@
 
     .demo-intro {
       position: absolute;
-      top: 90px;
+      top: 120px;
       left: 50%;
       transform: translateX(-50%);
-      width: min(90%, 680px);
+      width: min(88%, 680px);
       text-align: center;
       z-index: 21;
       color: #fff;
@@ -128,21 +129,52 @@
     }
 
     .demo-intro h1 {
-      margin: 0 0 8px;
-      font-size: 30px;
-      line-height: 1.04;
+      margin: 0 0 10px;
+      font-size: 28px;
+      line-height: 1.08;
       letter-spacing: -0.03em;
+      display: inline-block;
+      background: rgba(0,0,0,0.38);
+      padding: 10px 14px;
+      border-radius: 12px;
     }
 
     .demo-intro p {
       margin: 0;
       font-size: 15px;
       color: #dedede;
+      display: inline-block;
+      background: rgba(0,0,0,0.32);
+      padding: 8px 12px;
+      border-radius: 12px;
+    }
+
+    .scroll-overlay {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 25;
+      font-size: clamp(44px, 10vw, 76px);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      color: #fff;
+      text-shadow: 0 6px 24px rgba(0,0,0,0.7);
+      background: rgba(0,0,0,0.34);
+      padding: 14px 22px;
+      border-radius: 18px;
+      opacity: 0;
+      transition: opacity 0.7s ease;
+      pointer-events: none;
+    }
+
+    .scroll-overlay.show {
+      opacity: 1;
     }
 
     .logo-overlay {
       position: absolute;
-      top: 16px;
+      top: 28px;
       left: 16px;
       display: flex;
       align-items: center;
@@ -195,7 +227,7 @@
     .side-actions {
       position: absolute;
       right: 12px;
-      bottom: 132px;
+      bottom: 150px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -270,7 +302,7 @@
       position: absolute;
       left: 16px;
       right: 84px;
-      bottom: 128px;
+      bottom: 170px;
       color: #fff;
       z-index: 20;
       text-shadow: 0 2px 10px rgba(0,0,0,0.8);
@@ -292,7 +324,7 @@
 
     .order-btn {
       position: absolute;
-      bottom: 54px;
+      bottom: 90px;
       left: 16px;
       right: 16px;
       background: linear-gradient(90deg, #ff3b30, #d10000);
@@ -309,7 +341,7 @@
 
     .swipe-hint {
       position: absolute;
-      bottom: 102px;
+      bottom: 140px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 21;
@@ -357,10 +389,13 @@
     .pitch-inner {
       max-width: 780px;
       width: 100%;
+      padding-top: 80px;
+      padding-bottom: 140px;
     }
 
     .eyebrow {
       display: inline-block;
+      margin-top: 20px;
       margin-bottom: 14px;
       padding: 8px 12px;
       border-radius: 999px;
@@ -429,7 +464,7 @@
     }
 
     .money-box {
-      margin: 22px auto 18px;
+      margin: 30px auto 20px;
       max-width: 560px;
       border: 1px solid rgba(224,25,25,0.42);
       background: linear-gradient(180deg, rgba(120,0,0,0.20) 0%, rgba(255,255,255,0.05) 100%);
@@ -461,7 +496,8 @@
 
     .cta-btn {
       display: inline-block;
-      margin-top: 26px;
+      margin-top: 18px;
+      margin-bottom: 40px;
       padding: 18px 28px;
       min-width: 300px;
       border-radius: 999px;
@@ -492,7 +528,7 @@
       }
 
       .demo-intro {
-        top: 90px;
+        top: 120px;
         width: min(92%, 620px);
       }
 
@@ -504,8 +540,13 @@
         font-size: 14px;
       }
 
+      .scroll-overlay {
+        font-size: 48px;
+        padding: 12px 18px;
+      }
+
       .logo-overlay {
-        top: 16px;
+        top: 28px;
         left: 16px;
         padding: 9px 12px;
       }
@@ -526,7 +567,7 @@
 
       .side-actions {
         right: 10px;
-        bottom: 132px;
+        bottom: 150px;
         gap: 16px;
       }
 
@@ -549,7 +590,7 @@
       .bottom-info {
         left: 16px;
         right: 76px;
-        bottom: 126px;
+        bottom: 170px;
       }
 
       .bottom-info .restaurant {
@@ -561,13 +602,18 @@
       }
 
       .order-btn {
-        bottom: 54px;
+        bottom: 90px;
         font-size: 18px;
         padding: 16px 20px;
       }
 
       .swipe-hint {
-        bottom: 104px;
+        bottom: 140px;
+      }
+
+      .pitch-inner {
+        padding-top: 100px;
+        padding-bottom: 150px;
       }
 
       .pitch-inner h1 {
@@ -636,6 +682,8 @@
         <h1>This is how customers discover restaurants now</h1>
         <p>Scroll to experience the DMF feed</p>
       </div>
+
+      <div class="scroll-overlay" id="scrollOverlay">SCROLL</div>
 
       <div class="logo-overlay">
         <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" class="logo-bbq" />
@@ -711,20 +759,17 @@
 
         <div class="space-lg"></div>
 
-        <p class="line strong">That’s what your future customers will feel.</p>
+        <p class="lead strong">That’s the feeling.</p>
+        <p class="line">That’s what your future customers will feel.</p>
 
-        <div class="space-md"></div>
+        <div class="space-lg"></div>
 
         <p class="line red">And with DMF…</p>
-        <p class="line">They don’t leave.</p>
-        <p class="line">They don’t open another app.</p>
-
-        <div class="space-md"></div>
-
         <p class="lead">They order right there.</p>
-        <p class="line small">From your video.</p>
+        <p class="line small">They don’t leave</p>
+        <p class="line small">They don’t open another app</p>
 
-        <div class="space-md"></div>
+        <div class="space-lg"></div>
 
         <p class="line red">And this time…</p>
         <p class="lead strong">You own the customer.</p>
@@ -736,9 +781,8 @@
         <p class="line">They come back</p>
         <p class="line">You can reach them again</p>
 
-        <div class="space-md"></div>
+        <div class="space-lg"></div>
 
-        <p class="lead">This isn’t just ordering.</p>
         <p class="lead strong">This is your customer base.</p>
 
         <div class="pitch-scroll">Keep scrolling ↓</div>
@@ -773,9 +817,13 @@
 
         <div class="space-md"></div>
 
-        <p class="line red">And that’s the problem:</p>
-        <p class="lead">Apps don’t create demand.</p>
-        <p class="lead strong">They tax it.</p>
+        <p class="lead strong">National delivery apps</p>
+        <p class="line">take 20–35%</p>
+        <p class="line">on every order</p>
+
+        <div class="space-md"></div>
+
+        <p class="lead red">Every time.</p>
 
         <div class="pitch-scroll">Keep scrolling ↓</div>
       </div>
@@ -784,44 +832,44 @@
     <!-- SCREEN 5 -->
     <section class="slide pitch-screen red">
       <div class="pitch-inner">
-        <div class="eyebrow">Own the customer. Keep the margin.</div>
+        <div class="eyebrow">Take back control</div>
 
-        <p class="lead">Every order through an app…</p>
-        <p class="lead strong">You lose 20–35%.</p>
-        <p class="line">Every time.</p>
-        <p class="line">Forever.</p>
-
-        <div class="space-lg"></div>
-
-        <p class="line red">DMF flips that.</p>
-        <p class="line">No commissions</p>
-        <p class="line">No middleman</p>
-        <p class="line strong">You own the relationship</p>
-
-        <div class="space-lg"></div>
-
-        <p class="line">This is why restaurants feel stuck.</p>
-        <p class="lead">If you’re doing $10,000/month in delivery…</p>
-        <p class="lead strong">$2,000–$3,500 is gone.</p>
+        <p class="lead strong">Right now…</p>
+        <p class="lead">you’re paying variable costs</p>
 
         <div class="space-md"></div>
 
-        <p class="line green">With DMF:</p>
-        <p class="lead strong">You keep it.</p>
+        <p class="line">Every order</p>
+        <p class="line">Every time</p>
+        <p class="line">Forever</p>
+
+        <div class="space-lg"></div>
+
+        <p class="lead strong">That’s not marketing.</p>
+        <p class="lead red">That’s rent.</p>
+
+        <div class="space-lg"></div>
+
+        <p class="lead strong">DMF changes that.</p>
+        <p class="line">We turn it into a fixed cost.</p>
+        <p class="line">So you can actually plan your growth.</p>
 
         <div class="money-box">
-          <p class="money-price">$1,500</p>
-          <p class="money-sub">Founding Package</p>
-          <p class="money-sub">Early partners: $1,000</p>
-          <p class="money-monthly">$199/month</p>
+          <p class="money-price">$199/month</p>
+          <p class="money-sub">+ one-time setup</p>
         </div>
+
+        <p class="line strong">That’s it.</p>
+        <p class="line">No commissions</p>
+        <p class="line">No surprises</p>
+        <p class="line">No “renting” your customers</p>
 
         <a href="./restaurant.html" class="cta-btn">Get Your First Orders</a>
 
         <div class="micro">
-          <p>No commissions</p>
-          <p>No contracts</p>
           <p>You own the customer</p>
+          <p>You control the relationship</p>
+          <p>You keep the margin</p>
         </div>
       </div>
     </section>
@@ -835,6 +883,7 @@
     const tapSound = document.getElementById('tapSound');
     const tapSoundBadge = document.getElementById('tapSoundBadge');
     const feed = document.getElementById('feed');
+    const scrollOverlay = document.getElementById('scrollOverlay');
 
     let soundEnabled = false;
     let activeIndex = 0;
@@ -960,6 +1009,16 @@
 
     window.addEventListener('load', () => {
       detectActiveSlide();
+
+      setTimeout(() => {
+        if (scrollOverlay) {
+          scrollOverlay.classList.add('show');
+
+          setTimeout(() => {
+            scrollOverlay.classList.remove('show');
+          }, 1500);
+        }
+      }, 3000);
     });
   </script>
 
