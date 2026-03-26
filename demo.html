@@ -5,17 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DMF Demo Feed</title>
 
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
   <style>
-    * { box-sizing: border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     html, body {
       margin: 0;
       padding: 0;
       background: #000;
-      color: #fff;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       overflow: hidden;
     }
@@ -26,7 +24,6 @@
       scroll-snap-type: y mandatory;
       -webkit-overflow-scrolling: touch;
       scroll-behavior: smooth;
-      padding-bottom: 120px;
     }
 
     .slide {
@@ -52,7 +49,7 @@
       right: 0;
       bottom: 0;
       height: 42%;
-      background: linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0));
+      background: linear-gradient(to top, rgba(0,0,0,0.80), rgba(0,0,0,0));
       z-index: 10;
       pointer-events: none;
     }
@@ -61,16 +58,10 @@
       position: fixed;
       top: 14px;
       left: 14px;
-      right: 14px;
       z-index: 50;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
     }
 
-    .back-btn,
-    .sound-toggle {
-      pointer-events: auto;
+    .back-btn {
       display: inline-block;
       padding: 10px 14px;
       border-radius: 999px;
@@ -79,102 +70,14 @@
       font-size: 14px;
       font-weight: 800;
       text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.16);
+      border: 1px solid rgba(255,255,255,0.15);
       backdrop-filter: blur(8px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.35);
     }
 
-    .sound-toggle {
-      cursor: pointer;
-    }
-
-    .tap-sound {
-      position: fixed;
-      inset: 0;
-      z-index: 49;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .tap-sound.hidden {
-      display: none;
-    }
-
-    .tap-sound-badge {
-      pointer-events: auto;
-      background: rgba(0,0,0,0.62);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #fff;
-      padding: 16px 22px;
-      border-radius: 18px;
-      font-size: 18px;
-      font-weight: 800;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      cursor: pointer;
-    }
-
-    .demo-intro {
-      position: absolute;
-      top: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(88%, 680px);
-      text-align: center;
-      z-index: 21;
-      color: #fff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    }
-
-    .demo-intro h1 {
-      margin: 0 0 10px;
-      font-size: 28px;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      display: inline-block;
-      background: rgba(0,0,0,0.38);
-      padding: 10px 14px;
-      border-radius: 12px;
-    }
-
-    .demo-intro p {
-      margin: 0;
-      font-size: 15px;
-      color: #dedede;
-      display: inline-block;
-      background: rgba(0,0,0,0.32);
-      padding: 8px 12px;
-      border-radius: 12px;
-    }
-
-    .scroll-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 25;
-      font-size: clamp(44px, 10vw, 76px);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: #fff;
-      text-shadow: 0 6px 24px rgba(0,0,0,0.7);
-      background: rgba(0,0,0,0.34);
-      padding: 14px 22px;
-      border-radius: 18px;
-      opacity: 0;
-      transition: opacity 0.7s ease;
-      pointer-events: none;
-    }
-
-    .scroll-overlay.show {
-      opacity: 1;
-    }
-
     .logo-overlay {
       position: absolute;
-      top: 28px;
+      top: 16px;
       left: 16px;
       display: flex;
       align-items: center;
@@ -208,26 +111,79 @@
       white-space: nowrap;
     }
 
-    .logo-overlay img.logo-bbq,
-    .profile img.logo-bbq {
-      object-fit: cover;
-      padding: 0;
-      background: transparent;
-      transform: scale(1.18);
+    .sound-toggle {
+      position: fixed;
+      top: 18px;
+      right: 16px;
+      z-index: 50;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(0,0,0,0.42);
+      color: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 14px;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+      cursor: pointer;
     }
 
-    .logo-overlay img.logo-pizzazz,
-    .profile img.logo-pizzazz {
-      object-fit: contain;
-      padding: 4px;
-      background: #fff;
-      transform: none;
+    .tap-sound {
+      position: fixed;
+      inset: 0;
+      z-index: 49;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+
+    .tap-sound.hidden {
+      display: none;
+    }
+
+    .tap-sound-badge {
+      pointer-events: auto;
+      background: rgba(0,0,0,0.60);
+      border: 1px solid rgba(255,255,255,0.18);
+      color: #fff;
+      padding: 16px 22px;
+      border-radius: 18px;
+      font-size: 18px;
+      font-weight: 800;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+      cursor: pointer;
+    }
+
+    .demo-intro {
+      position: absolute;
+      top: 86px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(90%, 680px);
+      text-align: center;
+      z-index: 21;
+      color: #fff;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .demo-intro h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.1;
+    }
+
+    .demo-intro p {
+      margin: 0;
+      font-size: 14px;
+      color: #d8d8d8;
     }
 
     .side-actions {
       position: absolute;
       right: 12px;
-      bottom: 150px;
+      bottom: 122px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -302,7 +258,7 @@
       position: absolute;
       left: 16px;
       right: 84px;
-      bottom: 170px;
+      bottom: 112px;
       color: #fff;
       z-index: 20;
       text-shadow: 0 2px 10px rgba(0,0,0,0.8);
@@ -324,7 +280,7 @@
 
     .order-btn {
       position: absolute;
-      bottom: 90px;
+      bottom: 20px;
       left: 16px;
       right: 16px;
       background: linear-gradient(90deg, #ff3b30, #d10000);
@@ -341,7 +297,7 @@
 
     .swipe-hint {
       position: absolute;
-      bottom: 140px;
+      bottom: 96px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 21;
@@ -363,190 +319,111 @@
       100% { transform: translateX(-50%) translateY(0); }
     }
 
+    .logo-overlay img.logo-bbq,
+    .profile img.logo-bbq {
+      object-fit: cover;
+      padding: 0;
+      background: transparent;
+      transform: scale(1.18);
+    }
+
+    .logo-overlay img.logo-pizzazz,
+    .profile img.logo-pizzazz {
+      object-fit: contain;
+      padding: 4px;
+      background: #fff;
+      transform: none;
+    }
+
     .pitch-screen {
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      background:
-        radial-gradient(circle at center, rgba(130,0,0,0.18), transparent 45%),
-        #000;
-      padding: 26px;
+      background: #000;
+      padding: 28px;
     }
 
     .pitch-screen.dark {
-      background:
-        radial-gradient(circle at center, rgba(255,255,255,0.04), transparent 50%),
-        #000;
+      background: #050505;
     }
 
     .pitch-screen.red {
-      background:
-        radial-gradient(circle at center, rgba(160,0,0,0.28), transparent 46%),
-        #000;
+      background: radial-gradient(circle at center, rgba(100,0,0,0.35), #000 70%);
     }
 
     .pitch-inner {
-      max-width: 780px;
+      max-width: 760px;
       width: 100%;
-      padding-top: 80px;
-      padding-bottom: 140px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-top: 20px;
-      margin-bottom: 14px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #ff9797;
-      border: 1px solid rgba(224,25,25,0.34);
-      background: rgba(224,25,25,0.14);
     }
 
     .pitch-inner h1 {
-      font-size: clamp(38px, 8vw, 68px);
-      line-height: 0.98;
-      margin: 0 0 16px;
-      letter-spacing: -0.05em;
+      font-size: clamp(34px, 7vw, 58px);
+      line-height: 1.02;
+      margin: 0 0 18px;
+      letter-spacing: -0.04em;
     }
 
-    .lead {
-      font-size: 31px;
-      font-weight: 900;
-      line-height: 1.08;
-      margin: 0 0 14px;
+    .pitch-inner p {
+      font-size: 20px;
+      line-height: 1.65;
+      color: #d8d8d8;
+      margin: 0;
     }
 
-    .line {
-      font-size: 24px;
-      line-height: 1.35;
-      color: #dfdfdf;
-      margin: 0 0 10px;
-    }
-
-    .line.small {
-      font-size: 18px;
-      color: #bfbfbf;
-    }
-
-    .line.strong,
-    .strong {
+    .pitch-inner strong {
       color: #fff;
-      font-weight: 900;
     }
-
-    .line.red,
-    .red {
-      color: #ff4a4a;
-      font-weight: 900;
-    }
-
-    .line.green,
-    .green {
-      color: #7dff9f;
-      font-weight: 900;
-    }
-
-    .space-sm { height: 10px; }
-    .space-md { height: 18px; }
-    .space-lg { height: 28px; }
 
     .pitch-scroll {
-      margin-top: 18px;
-      font-size: 15px;
-      color: #b5b5b5;
-      font-weight: 800;
+      margin-top: 22px;
+      font-size: 14px;
+      color: #aaa;
+      font-weight: 700;
     }
 
-    .money-box {
-      margin: 30px auto 20px;
-      max-width: 560px;
-      border: 1px solid rgba(224,25,25,0.42);
-      background: linear-gradient(180deg, rgba(120,0,0,0.20) 0%, rgba(255,255,255,0.05) 100%);
-      border-radius: 26px;
-      padding: 24px 18px;
-      box-shadow: 0 18px 42px rgba(120,0,0,0.25);
-    }
-
-    .money-price {
-      font-size: 52px;
-      font-weight: 900;
-      line-height: 1;
-      margin: 0 0 10px;
-    }
-
-    .money-sub {
-      font-size: 21px;
-      font-weight: 800;
-      color: #fff;
-      margin: 0 0 8px;
-    }
-
-    .money-monthly {
-      font-size: 28px;
+    .offer {
+      margin-top: 24px;
+      font-size: 34px;
       font-weight: 900;
       color: #fff;
-      margin: 12px 0 0;
+      line-height: 1.2;
+    }
+
+    .offer-sub {
+      margin-top: 10px;
+      font-size: 18px;
+      color: #cfcfcf;
     }
 
     .cta-btn {
       display: inline-block;
-      margin-top: 18px;
-      margin-bottom: 40px;
-      padding: 18px 28px;
-      min-width: 300px;
+      margin-top: 28px;
+      padding: 16px 24px;
       border-radius: 999px;
-      background: linear-gradient(90deg, #ff4c3f, #d01a12);
+      background: linear-gradient(90deg, #ff2a2a, #c00000);
       color: #fff;
-      font-weight: 900;
+      font-weight: 800;
       text-decoration: none;
-      box-shadow: 0 10px 28px rgba(224,25,25,0.45);
-      font-size: 21px;
-    }
-
-    .micro {
-      margin-top: 18px;
-    }
-
-    .micro p {
-      margin: 6px 0;
-      font-size: 18px;
-      color: #dedede;
-      font-weight: 700;
+      box-shadow: 0 10px 25px rgba(224,25,25,0.4);
+      font-size: 16px;
     }
 
     @media (max-width: 600px) {
-      .back-btn,
-      .sound-toggle {
-        font-size: 13px;
-        padding: 9px 12px;
-      }
-
       .demo-intro {
-        top: 120px;
-        width: min(92%, 620px);
+        top: 84px;
       }
 
       .demo-intro h1 {
-        font-size: 24px;
+        font-size: 22px;
       }
 
       .demo-intro p {
-        font-size: 14px;
-      }
-
-      .scroll-overlay {
-        font-size: 48px;
-        padding: 12px 18px;
+        font-size: 13px;
       }
 
       .logo-overlay {
-        top: 28px;
+        top: 16px;
         left: 16px;
         padding: 9px 12px;
       }
@@ -560,6 +437,13 @@
         font-size: 13px;
       }
 
+      .sound-toggle {
+        top: 16px;
+        right: 16px;
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
       .tap-sound-badge {
         font-size: 16px;
         padding: 14px 18px;
@@ -567,7 +451,7 @@
 
       .side-actions {
         right: 10px;
-        bottom: 150px;
+        bottom: 120px;
         gap: 16px;
       }
 
@@ -590,7 +474,7 @@
       .bottom-info {
         left: 16px;
         right: 76px;
-        bottom: 170px;
+        bottom: 110px;
       }
 
       .bottom-info .restaurant {
@@ -602,55 +486,23 @@
       }
 
       .order-btn {
-        bottom: 90px;
         font-size: 18px;
         padding: 16px 20px;
       }
 
       .swipe-hint {
-        bottom: 140px;
+        bottom: 92px;
       }
 
-      .pitch-inner {
-        padding-top: 100px;
-        padding-bottom: 150px;
+      .pitch-inner p {
+        font-size: 17px;
       }
 
-      .pitch-inner h1 {
-        font-size: 44px;
+      .offer {
+        font-size: 28px;
       }
 
-      .lead {
-        font-size: 24px;
-      }
-
-      .line {
-        font-size: 18px;
-      }
-
-      .line.small {
-        font-size: 15px;
-      }
-
-      .money-price {
-        font-size: 42px;
-      }
-
-      .money-sub {
-        font-size: 18px;
-      }
-
-      .money-monthly {
-        font-size: 24px;
-      }
-
-      .cta-btn {
-        min-width: 0;
-        width: 100%;
-        font-size: 19px;
-      }
-
-      .micro p {
+      .offer-sub {
         font-size: 16px;
       }
     }
@@ -661,8 +513,9 @@
 
   <div class="top-nav">
     <a href="./index.html" class="back-btn">← Back to DMF</a>
-    <button id="soundToggle" class="sound-toggle" type="button">🔇 Sound Off</button>
   </div>
+
+  <button id="soundToggle" class="sound-toggle" type="button">🔇 Sound Off</button>
 
   <div id="tapSound" class="tap-sound">
     <button id="tapSoundBadge" class="tap-sound-badge" type="button">🔊 Tap for sound</button>
@@ -670,7 +523,7 @@
 
   <div class="feed" id="feed">
 
-    <!-- SCREEN 1 -->
+    <!-- Screen 1 -->
     <section class="slide">
       <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./bbq.mp4" type="video/mp4" />
@@ -682,8 +535,6 @@
         <h1>This is how customers discover restaurants now</h1>
         <p>Scroll to experience the DMF feed</p>
       </div>
-
-      <div class="scroll-overlay" id="scrollOverlay">SCROLL</div>
 
       <div class="logo-overlay">
         <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" class="logo-bbq" />
@@ -714,7 +565,7 @@
       </a>
     </section>
 
-    <!-- SCREEN 2 -->
+    <!-- Screen 2 -->
     <section class="slide">
       <video class="feed-video" muted loop playsinline preload="metadata">
         <source src="./pizzazz.mp4" type="video/mp4" />
@@ -749,128 +600,56 @@
       </a>
     </section>
 
-    <!-- SCREEN 3 -->
+    <!-- Screen 3 -->
     <section class="slide pitch-screen">
       <div class="pitch-inner">
-        <div class="eyebrow">What your customers will feel</div>
-
-        <p class="lead">You just watched that.</p>
-        <p class="lead">Did it make you want to order?</p>
-
-        <div class="space-lg"></div>
-
-        <p class="lead strong">That’s the feeling.</p>
-        <p class="line">That’s what your future customers will feel.</p>
-
-        <div class="space-lg"></div>
-
-        <p class="line red">And with DMF…</p>
-        <p class="lead">They order right there.</p>
-        <p class="line small">They don’t leave</p>
-        <p class="line small">They don’t open another app</p>
-
-        <div class="space-lg"></div>
-
-        <p class="line red">And this time…</p>
-        <p class="lead strong">You own the customer.</p>
-
-        <div class="space-md"></div>
-
-        <p class="line">They follow you</p>
-        <p class="line">They save your food</p>
-        <p class="line">They come back</p>
-        <p class="line">You can reach them again</p>
-
-        <div class="space-lg"></div>
-
-        <p class="lead strong">This is your customer base.</p>
-
+        <h1>Does this make sense?</h1>
+        <p>
+          Customers aren’t opening apps to decide anymore.<br><br>
+          They’re deciding right here.<br>
+          On video. On scroll.<br><br>
+          By the time they open an app…<br>
+          <strong>they already chose the restaurant.</strong>
+        </p>
         <div class="pitch-scroll">Keep scrolling ↓</div>
       </div>
     </section>
 
-    <!-- SCREEN 4 -->
+    <!-- Screen 4 -->
     <section class="slide pitch-screen dark">
       <div class="pitch-inner">
-        <div class="eyebrow">This shift is already happening</div>
-
-        <p class="line strong">Customers aren’t deciding inside apps anymore.</p>
-
-        <div class="space-md"></div>
-
-        <p class="lead">They’re deciding:</p>
-        <p class="line">On video</p>
-        <p class="line">On scroll</p>
-        <p class="line">Before they ever order</p>
-
-        <div class="space-lg"></div>
-
-        <p class="line red">And the numbers prove it:</p>
-        <p class="line">Gen Z → Video-first decisions</p>
-        <p class="line">Millennials → Majority influenced</p>
-        <p class="line">Gen X → Rapidly shifting</p>
-
-        <div class="space-lg"></div>
-
-        <p class="line">By the time they open a delivery app…</p>
-        <p class="lead strong">the decision is already made.</p>
-
-        <div class="space-md"></div>
-
-        <p class="lead strong">National delivery apps</p>
-        <p class="line">take 20–35%</p>
-        <p class="line">on every order</p>
-
-        <div class="space-md"></div>
-
-        <p class="lead red">Every time.</p>
-
-        <div class="pitch-scroll">Keep scrolling ↓</div>
+        <h1>This is what DMF does</h1>
+        <p>
+          We take that moment…<br><br>
+          and turn it into a direct order.<br><br>
+          No middleman.<br>
+          No commissions.<br>
+          No lost customer.<br><br>
+          <strong>Discovery → Order → You</strong>
+        </p>
       </div>
     </section>
 
-    <!-- SCREEN 5 -->
+    <!-- Screen 5 -->
     <section class="slide pitch-screen red">
       <div class="pitch-inner">
-        <div class="eyebrow">Take back control</div>
+        <h1>Want your restaurant here?</h1>
+        <p>
+          Be one of the first restaurants customers discover.
+        </p>
 
-        <p class="lead strong">Right now…</p>
-        <p class="lead">you’re paying variable costs</p>
-
-        <div class="space-md"></div>
-
-        <p class="line">Every order</p>
-        <p class="line">Every time</p>
-        <p class="line">Forever</p>
-
-        <div class="space-lg"></div>
-
-        <p class="lead strong">That’s not marketing.</p>
-        <p class="lead red">That’s rent.</p>
-
-        <div class="space-lg"></div>
-
-        <p class="lead strong">DMF changes that.</p>
-        <p class="line">We turn it into a fixed cost.</p>
-        <p class="line">So you can actually plan your growth.</p>
-
-        <div class="money-box">
-          <p class="money-price">$199/month</p>
-          <p class="money-sub">+ one-time setup</p>
+        <div class="offer">
+          $1,500<br>
+          Founding 10: $1,000
         </div>
 
-        <p class="line strong">That’s it.</p>
-        <p class="line">No commissions</p>
-        <p class="line">No surprises</p>
-        <p class="line">No “renting” your customers</p>
-
-        <a href="./restaurant.html" class="cta-btn">Get Your First Orders</a>
-
-        <div class="micro">
-          <p>You own the customer</p>
-          <p>You control the relationship</p>
-          <p>You keep the margin</p>
+        <div class="offer-sub">
+          Platform access: $199/month
         </div>
+
+        <a href="./restaurant.html" class="cta-btn">
+          Become a Founding Restaurant
+        </a>
       </div>
     </section>
 
@@ -883,7 +662,6 @@
     const tapSound = document.getElementById('tapSound');
     const tapSoundBadge = document.getElementById('tapSoundBadge');
     const feed = document.getElementById('feed');
-    const scrollOverlay = document.getElementById('scrollOverlay');
 
     let soundEnabled = false;
     let activeIndex = 0;
@@ -952,6 +730,7 @@
         const video = videos[activeIndex];
         video.muted = false;
         video.volume = 1;
+
         try {
           await video.play();
         } catch (e) {
@@ -1004,851 +783,6 @@
         }
       });
     });
-
-    feed.addEventListener('scroll', detectActiveSlide);
-
-    window.addEventListener('load', () => {
-      detectActiveSlide();
-
-      setTimeout(() => {
-        if (scrollOverlay) {
-          scrollOverlay.classList.add('show');
-
-          setTimeout(() => {
-            scrollOverlay.classList.remove('show');
-          }, 1500);
-        }
-      }, 3000);
-    });
-  </script>
-
-</body>
-</html>    .top-nav {
-      position: fixed;
-      top: 14px;
-      left: 14px;
-      right: 14px;
-      z-index: 50;
-      display: flex;
-      justify-content: space-between;
-      pointer-events: none;
-    }
-
-    .back-btn,
-    .sound-toggle {
-      pointer-events: auto;
-      display: inline-block;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.45);
-      color: #fff;
-      font-size: 14px;
-      font-weight: 800;
-      text-decoration: none;
-      border: 1px solid rgba(255,255,255,0.16);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    }
-
-    .sound-toggle {
-      cursor: pointer;
-    }
-
-    .tap-sound {
-      position: fixed;
-      inset: 0;
-      z-index: 49;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-    }
-
-    .tap-sound.hidden {
-      display: none;
-    }
-
-    .tap-sound-badge {
-      pointer-events: auto;
-      background: rgba(0,0,0,0.62);
-      border: 1px solid rgba(255,255,255,0.18);
-      color: #fff;
-      padding: 16px 22px;
-      border-radius: 18px;
-      font-size: 18px;
-      font-weight: 800;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-      cursor: pointer;
-    }
-
-    .demo-intro {
-      position: absolute;
-      top: 120px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: min(88%, 680px);
-      text-align: center;
-      z-index: 21;
-      color: #fff;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    }
-
-    .demo-intro h1 {
-      margin: 0 0 10px;
-      font-size: 28px;
-      line-height: 1.08;
-      letter-spacing: -0.03em;
-      display: inline-block;
-      background: rgba(0,0,0,0.38);
-      padding: 10px 14px;
-      border-radius: 12px;
-    }
-
-    .demo-intro p {
-      margin: 0;
-      font-size: 15px;
-      color: #dedede;
-      display: inline-block;
-      background: rgba(0,0,0,0.32);
-      padding: 8px 12px;
-      border-radius: 12px;
-    }
-
-    .scroll-overlay {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 25;
-      font-size: clamp(44px, 10vw, 76px);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      color: #fff;
-      text-shadow: 0 6px 24px rgba(0,0,0,0.7);
-      background: rgba(0,0,0,0.34);
-      padding: 14px 22px;
-      border-radius: 18px;
-      opacity: 0;
-      transition: opacity 0.7s ease;
-      pointer-events: none;
-    }
-
-    .scroll-overlay.show {
-      opacity: 1;
-    }
-
-    .logo-overlay {
-      position: absolute;
-      top: 28px;
-      left: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      z-index: 20;
-      padding: 10px 14px;
-      border-radius: 18px;
-      background: rgba(45,35,35,0.42);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 10px 24px rgba(0,0,0,0.25);
-      overflow: hidden;
-    }
-
-    .logo-overlay img {
-      width: 42px;
-      height: 42px;
-      border-radius: 10px;
-      display: block;
-      box-shadow: 0 6px 16px rgba(0,0,0,0.45);
-      flex-shrink: 0;
-      background: #111;
-    }
-
-    .logo-overlay span {
-      color: #fff;
-      font-weight: 800;
-      font-size: 14px;
-      line-height: 1;
-      letter-spacing: -0.01em;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.55);
-      white-space: nowrap;
-    }
-
-    .logo-overlay img.logo-bbq,
-    .profile img.logo-bbq {
-      object-fit: cover;
-      padding: 0;
-      background: transparent;
-      transform: scale(1.18);
-    }
-
-    .logo-overlay img.logo-pizzazz,
-    .profile img.logo-pizzazz {
-      object-fit: contain;
-      padding: 4px;
-      background: #fff;
-      transform: none;
-    }
-
-    .side-actions {
-      position: absolute;
-      right: 12px;
-      bottom: 150px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 18px;
-      z-index: 20;
-    }
-
-    .profile {
-      position: relative;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      overflow: hidden;
-      border: 2px solid #fff;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-      background: rgba(0,0,0,0.25);
-    }
-
-    .profile img {
-      width: 56px;
-      height: 56px;
-      display: block;
-      background: #111;
-    }
-
-    .follow {
-      position: absolute;
-      bottom: -4px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #e01919;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.35);
-    }
-
-    .action {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      color: #fff;
-      font-size: 12px;
-      font-weight: 700;
-      text-shadow: 0 2px 8px rgba(0,0,0,0.7);
-      text-decoration: none;
-    }
-
-    .action-btn {
-      width: 52px;
-      height: 52px;
-      border-radius: 999px;
-      background: rgba(0,0,0,0.42);
-      border: 1px solid rgba(255,255,255,0.14);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      line-height: 1;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.35);
-    }
-
-    .bottom-info {
-      position: absolute;
-      left: 16px;
-      right: 84px;
-      bottom: 170px;
-      color: #fff;
-      z-index: 20;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-    }
-
-    .bottom-info .restaurant {
-      font-weight: 900;
-      font-size: 22px;
-      margin-bottom: 6px;
-      letter-spacing: -0.01em;
-    }
-
-    .bottom-info .description {
-      font-size: 14px;
-      color: #e6e6e6;
-      line-height: 1.45;
-      max-width: 430px;
-    }
-
-    .order-btn {
-      position: absolute;
-      bottom: 90px;
-      left: 16px;
-      right: 16px;
-      background: linear-gradient(90deg, #ff3b30, #d10000);
-      color: #fff;
-      padding: 18px 20px;
-      border-radius: 18px;
-      font-weight: 900;
-      font-size: 18px;
-      text-align: center;
-      text-decoration: none;
-      box-shadow: 0 14px 40px rgba(217,52,43,0.5);
-      z-index: 20;
-    }
-
-    .swipe-hint {
-      position: absolute;
-      bottom: 140px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 21;
-      font-size: 12px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.92);
-      background: rgba(0,0,0,0.40);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 9px 14px;
-      border-radius: 999px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-      animation: floatHint 1.6s ease-in-out infinite;
-    }
-
-    @keyframes floatHint {
-      0% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(-5px); }
-      100% { transform: translateX(-50%) translateY(0); }
-    }
-
-    .pitch-screen {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background:
-        radial-gradient(circle at center, rgba(130,0,0,0.18), transparent 45%),
-        #000;
-      padding: 26px;
-    }
-
-    .pitch-screen.dark {
-      background:
-        radial-gradient(circle at center, rgba(255,255,255,0.04), transparent 50%),
-        #000;
-    }
-
-    .pitch-screen.red {
-      background:
-        radial-gradient(circle at center, rgba(160,0,0,0.28), transparent 46%),
-        #000;
-    }
-
-    .pitch-inner {
-      max-width: 780px;
-      width: 100%;
-      padding-top: 80px;
-      padding-bottom: 140px;
-    }
-
-    .eyebrow {
-      display: inline-block;
-      margin-top: 20px;
-      margin-bottom: 14px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #ff9797;
-      border: 1px solid rgba(224,25,25,0.34);
-      background: rgba(224,25,25,0.14);
-    }
-
-    .pitch-inner h1 {
-      font-size: clamp(38px, 8vw, 68px);
-      line-height: 0.98;
-      margin: 0 0 16px;
-      letter-spacing: -0.05em;
-    }
-
-    .lead {
-      font-size: 31px;
-      font-weight: 900;
-      line-height: 1.08;
-      margin: 0 0 14px;
-    }
-
-    .line {
-      font-size: 24px;
-      line-height: 1.35;
-      color: #dfdfdf;
-      margin: 0 0 10px;
-    }
-
-    .line.small {
-      font-size: 18px;
-      color: #bfbfbf;
-    }
-
-    .line.strong,
-    .strong {
-      color: #fff;
-      font-weight: 900;
-    }
-
-    .line.red,
-    .red {
-      color: #ff4a4a;
-      font-weight: 900;
-    }
-
-    .line.green,
-    .green {
-      color: #7dff9f;
-      font-weight: 900;
-    }
-
-    .space-sm { height: 10px; }
-    .space-md { height: 18px; }
-    .space-lg { height: 28px; }
-
-    .pitch-scroll {
-      margin-top: 18px;
-      font-size: 15px;
-      color: #b5b5b5;
-      font-weight: 800;
-    }
-
-    .money-box {
-      margin: 30px auto 20px;
-      max-width: 560px;
-      border: 1px solid rgba(224,25,25,0.42);
-      background: linear-gradient(180deg, rgba(120,0,0,0.20) 0%, rgba(255,255,255,0.05) 100%);
-      border-radius: 26px;
-      padding: 24px 18px;
-      box-shadow: 0 18px 42px rgba(120,0,0,0.25);
-    }
-
-    .money-price {
-      font-size: 52px;
-      font-weight: 900;
-      line-height: 1;
-      margin: 0 0 10px;
-    }
-
-    .money-sub {
-      font-size: 21px;
-      font-weight: 800;
-      color: #fff;
-      margin: 0 0 8px;
-    }
-
-    .money-monthly {
-      font-size: 28px;
-      font-weight: 900;
-      color: #fff;
-      margin: 12px 0 0;
-    }
-
-    .cta-btn {
-      display: inline-block;
-      margin-top: 18px;
-      margin-bottom: 40px;
-      padding: 18px 28px;
-      min-width: 300px;
-      border-radius: 999px;
-      background: linear-gradient(90deg, #ff4c3f, #d01a12);
-      color: #fff;
-      font-weight: 900;
-      text-decoration: none;
-      box-shadow: 0 10px 28px rgba(224,25,25,0.45);
-      font-size: 21px;
-    }
-
-    .micro {
-      margin-top: 18px;
-    }
-
-    .micro p {
-      margin: 6px 0;
-      font-size: 18px;
-      color: #dedede;
-      font-weight: 700;
-    }
-
-    @media (max-width: 600px) {
-      .back-btn,
-      .sound-toggle {
-        font-size: 13px;
-        padding: 9px 12px;
-      }
-
-      .demo-intro {
-        top: 120px;
-        width: min(92%, 620px);
-      }
-
-      .demo-intro h1 {
-        font-size: 24px;
-      }
-
-      .demo-intro p {
-        font-size: 14px;
-      }
-
-      .scroll-overlay {
-        font-size: 48px;
-        padding: 12px 18px;
-      }
-
-      .logo-overlay {
-        top: 28px;
-        left: 16px;
-        padding: 9px 12px;
-      }
-
-      .logo-overlay img {
-        width: 40px;
-        height: 40px;
-      }
-
-      .logo-overlay span {
-        font-size: 13px;
-      }
-
-      .tap-sound-badge {
-        font-size: 16px;
-        padding: 14px 18px;
-      }
-
-      .side-actions {
-        right: 10px;
-        bottom: 150px;
-        gap: 16px;
-      }
-
-      .profile {
-        width: 54px;
-        height: 54px;
-      }
-
-      .profile img {
-        width: 54px;
-        height: 54px;
-      }
-
-      .action-btn {
-        width: 50px;
-        height: 50px;
-        font-size: 22px;
-      }
-
-      .bottom-info {
-        left: 16px;
-        right: 76px;
-        bottom: 170px;
-      }
-
-      .bottom-info .restaurant {
-        font-size: 18px;
-      }
-
-      .bottom-info .description {
-        font-size: 13px;
-      }
-
-      .order-btn {
-        bottom: 90px;
-        font-size: 18px;
-        padding: 16px 20px;
-      }
-
-      .swipe-hint {
-        bottom: 140px;
-      }
-
-      .pitch-inner {
-        padding-top: 100px;
-        padding-bottom: 150px;
-      }
-
-      .pitch-inner h1 {
-        font-size: 44px;
-      }
-
-      .lead {
-        font-size: 24px;
-      }
-
-      .line {
-        font-size: 18px;
-      }
-
-      .line.small {
-        font-size: 15px;
-      }
-
-      .money-price {
-        font-size: 42px;
-      }
-
-      .money-sub {
-        font-size: 18px;
-      }
-
-      .money-monthly {
-        font-size: 24px;
-      }
-
-      .cta-btn {
-        min-width: 0;
-        width: 100%;
-        font-size: 19px;
-      }
-
-      .micro p {
-        font-size: 16px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <div class="top-nav">
-    <a href="./index.html" class="back-btn">← Back to DMF</a>
-    <button id="soundToggle" class="sound-toggle" type="button">🔇 Sound Off</button>
-  </div>
-
-  <div id="tapSound" class="tap-sound">
-    <button id="tapSoundBadge" class="tap-sound-badge" type="button">🔊 Tap for sound</button>
-  </div>
-
-  <div class="feed" id="feed">
-
-    <!-- SCREEN 1 -->
-    <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
-        <source src="./bbq.mp4" type="video/mp4" />
-      </video>
-
-      <div class="bottom-fade"></div>
-
-      <div class="demo-intro">
-        <h1>This is how customers discover restaurants now</h1>
-        <p>Scroll to experience the DMF feed</p>
-      </div>
-
-      <div class="scroll-overlay" id="scrollOverlay">SCROLL</div>
-
-      <div class="logo-overlay">
-        <img src="bbq-logo.png" alt="Real Smoq'ed BBQ logo" class="logo-bbq" />
-        <span>Real Smoq'ed BBQ</span>
-      </div>
-
-      <div class="side-actions">
-        <div class="profile">
-          <img src="bbq-logo.png" alt="Real Smoq'ed BBQ profile" class="logo-bbq" />
-          <div class="follow">+</div>
-        </div>
-
-        <a href="#" class="action"><div class="action-btn">❤️</div><div>1.2K</div></a>
-        <a href="#" class="action"><div class="action-btn">💬</div><div>184</div></a>
-        <a href="#" class="action"><div class="action-btn">🔖</div><div>Save</div></a>
-        <a href="#" class="action"><div class="action-btn">↗️</div><div>Share</div></a>
-      </div>
-
-      <div class="bottom-info">
-        <div class="restaurant">Real Smoq'ed BBQ</div>
-        <div class="description">Slow-smoked BBQ, sauced ribs, and real comfort food.</div>
-      </div>
-
-      <div class="swipe-hint">Swipe up to explore more restaurants ↑</div>
-
-      <a href="https://realsmoqedbbq.com/menu" class="order-btn" target="_blank" rel="noopener noreferrer">
-        Order Now
-      </a>
-    </section>
-
-    <!-- SCREEN 2 -->
-    <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
-        <source src="./pizzazz.mp4" type="video/mp4" />
-      </video>
-
-      <div class="bottom-fade"></div>
-
-      <div class="logo-overlay">
-        <img src="pizzazz.png" alt="Pizzazz on the Circle logo" class="logo-pizzazz" />
-        <span>Pizzazz on the Circle</span>
-      </div>
-
-      <div class="side-actions">
-        <div class="profile">
-          <img src="pizzazz.png" alt="Pizzazz on the Circle profile" class="logo-pizzazz" />
-          <div class="follow">+</div>
-        </div>
-
-        <a href="#" class="action"><div class="action-btn">❤️</div><div>986</div></a>
-        <a href="#" class="action"><div class="action-btn">💬</div><div>127</div></a>
-        <a href="#" class="action"><div class="action-btn">🔖</div><div>Save</div></a>
-        <a href="#" class="action"><div class="action-btn">↗️</div><div>Share</div></a>
-      </div>
-
-      <div class="bottom-info">
-        <div class="restaurant">Pizzazz on the Circle</div>
-        <div class="description">Pizza, pasta, comfort food, and downtown flavor — discover it, then order direct.</div>
-      </div>
-
-      <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" class="order-btn" target="_blank" rel="noopener noreferrer">
-        Order Now
-      </a>
-    </section>
-
-        <!-- SCREEN 3 (NEW VIDEO) -->
-    <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
-        <source src="./video2.mp4" type="video/mp4" />
-      </video>
-
-      <div class="bottom-fade"></div>
-
-      <div class="logo-overlay">
-        <span>DMF</span>
-      </div>
-
-      <div class="side-actions">
-        <div class="profile">
-          <div class="follow">+</div>
-        </div>
-
-        <a href="#" class="action">
-          <div class="action-btn">❤️</div>
-          <div>1.1K</div>
-        </a>
-
-        <a href="#" class="action">
-          <div class="action-btn">💬</div>
-          <div>142</div>
-        </a>
-
-        <a href="#" class="action">
-          <div class="action-btn">🔖</div>
-          <div>Save</div>
-        </a>
-
-        <a href="#" class="action">
-          <div class="action-btn">↗️</div>
-          <div>Share</div>
-        </a>
-      </div>
-
-      <div class="bottom-info">
-        <div class="restaurant">Discover → Watch → Order</div>
-        <div class="description">
-          This is where discovery turns into action.
-        </div>
-      </div>
-    </section>
-
-    <!-- SCREEN 4 (PIZZAZZ) -->
-    <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
-        <source src="./pizzazz.mp4" type="video/mp4" />
-      </video>
-
-      <div class="bottom-fade"></div>
-
-      <div class="logo-overlay">
-        <img src="pizzazz.png" class="logo-pizzazz" />
-        <span>Pizzazz on the Circle</span>
-      </div>
-
-      <div class="side-actions">
-        <div class="profile">
-          <img src="pizzazz.png" class="logo-pizzazz" />
-          <div class="follow">+</div>
-        </div>
-
-        <a href="#" class="action">
-          <div class="action-btn">❤️</div>
-          <div>986</div>
-        </a>
-
-        <a href="#" class="action">
-          <div class="action-btn">💬</div>
-          <div>127</div>
-        </a>
-
-        <a href="#" class="action">
-          <div class="action-btn">🔖</div>
-          <div>Save</div>
-        </a>
-
-        <a href="#" class="action">
-          <div class="action-btn">↗️</div>
-          <div>Share</div>
-        </a>
-      </div>
-
-      <div class="bottom-info">
-        <div class="restaurant">Pizzazz on the Circle</div>
-        <div class="description">
-          Pizza, pasta, and downtown flavor — discover it, then order direct.
-        </div>
-      </div>
-
-      <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
-         class="order-btn" target="_blank">
-        Order Now
-      </a>
-    </section>
-
-  </div>
-
-  <script>
-    const videos = document.querySelectorAll('.feed-video');
-    const slides = document.querySelectorAll('.slide');
-    const feed = document.getElementById('feed');
-
-    function playVideoAt(index) {
-      videos.forEach((video, i) => {
-        if (i === index) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-    }
-
-    function detectActiveSlide() {
-      let bestIndex = 0;
-      let bestVisible = 0;
-
-      slides.forEach((slide, index) => {
-        const rect = slide.getBoundingClientRect();
-        const visible =
-          Math.min(rect.bottom, window.innerHeight) -
-          Math.max(rect.top, 0);
-
-        if (visible > bestVisible) {
-          bestVisible = visible;
-          bestIndex = index;
-        }
-      });
-
-      playVideoAt(bestIndex);
-    }
 
     feed.addEventListener('scroll', detectActiveSlide);
 
