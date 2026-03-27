@@ -602,35 +602,19 @@
 
         <!-- Screen 3 -->
     <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
+      <video class="feed-video" muted loop playsinline preload="auto" webkit-playsinline>
         <source src="./video1.mp4" type="video/mp4" />
       </video>
     </section>
 
     <!-- Screen 4 -->
     <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
+      <video class="feed-video" muted loop playsinline preload="auto" webkit-playsinline>
         <source src="./video2.mp4" type="video/mp4" />
       </video>
     </section>
 
-    <!-- Screen 5 -->
-    <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
-        <source src="./video3.mp4" type="video/mp4" />
-      </video>
-    </section>
-
-    <!-- Screen 6 -->
-    <section class="slide">
-      <video class="feed-video" muted loop playsinline preload="metadata">
-        <source src="./video4.mp4" type="video/mp4" />
-      </video>
-    </section>
-
-  </div>
-
-  <script>
+   <script>
     const videos = document.querySelectorAll('.feed-video');
     const slides = document.querySelectorAll('.slide');
     const soundToggle = document.getElementById('soundToggle');
@@ -650,14 +634,16 @@
         if (i === index) {
           video.muted = !soundEnabled;
           video.volume = 1;
-          const p = video.play();
-          if (p) p.catch(() => {});
+          video.play().catch(err => {
+            console.log('Play failed for video index', i, err);
+          });
         } else {
           video.pause();
           video.muted = true;
           video.currentTime = 0;
         }
       });
+
       updateSoundButton();
     }
 
@@ -712,9 +698,7 @@
       }
 
       soundEnabled = false;
-      videos.forEach(v => {
-        v.muted = true;
-      });
+      videos.forEach(v => v.muted = true);
       tapSound.classList.remove('hidden');
       tapSound.style.display = 'flex';
       updateSoundButton();
@@ -739,14 +723,22 @@
           playVideoAt(activeIndex);
         }
       });
+
+      video.addEventListener('loadeddata', () => {
+        console.log('Loaded video index', index);
+      });
+
+      video.addEventListener('error', () => {
+        console.log('Error loading video index', index, video.currentSrc);
+      });
     });
 
     feed.addEventListener('scroll', detectActiveSlide);
 
     window.addEventListener('load', () => {
+      videos.forEach(v => v.load());
       playVideoAt(0);
     });
   </script>
-
 </body>
 </html>
