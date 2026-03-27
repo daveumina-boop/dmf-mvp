@@ -600,57 +600,32 @@
       </a>
     </section>
 
-    <!-- Screen 3 -->
-    <section class="slide pitch-screen">
-      <div class="pitch-inner">
-        <h1>Does this make sense?</h1>
-        <p>
-          Customers aren’t opening apps to decide anymore.<br><br>
-          They’re deciding right here.<br>
-          On video. On scroll.<br><br>
-          By the time they open an app…<br>
-          <strong>they already chose the restaurant.</strong>
-        </p>
-        <div class="pitch-scroll">Keep scrolling ↓</div>
-      </div>
+        <!-- Screen 3 -->
+    <section class="slide">
+      <video class="feed-video" muted loop playsinline preload="metadata">
+        <source src="./video1.mp4" type="video/mp4" />
+      </video>
     </section>
 
     <!-- Screen 4 -->
-    <section class="slide pitch-screen dark">
-      <div class="pitch-inner">
-        <h1>This is what DMF does</h1>
-        <p>
-          We take that moment…<br><br>
-          and turn it into a direct order.<br><br>
-          No middleman.<br>
-          No commissions.<br>
-          No lost customer.<br><br>
-          <strong>Discovery → Order → You</strong>
-        </p>
-      </div>
+    <section class="slide">
+      <video class="feed-video" muted loop playsinline preload="metadata">
+        <source src="./video2.mp4" type="video/mp4" />
+      </video>
     </section>
 
     <!-- Screen 5 -->
-    <section class="slide pitch-screen red">
-      <div class="pitch-inner">
-        <h1>Want your restaurant here?</h1>
-        <p>
-          Be one of the first restaurants customers discover.
-        </p>
+    <section class="slide">
+      <video class="feed-video" muted loop playsinline preload="metadata">
+        <source src="./video3.mp4" type="video/mp4" />
+      </video>
+    </section>
 
-        <div class="offer">
-          $1,500<br>
-          Founding 10: $1,000
-        </div>
-
-        <div class="offer-sub">
-          Platform access: $199/month
-        </div>
-
-        <a href="./restaurant.html" class="cta-btn">
-          Become a Founding Restaurant
-        </a>
-      </div>
+    <!-- Screen 6 -->
+    <section class="slide">
+      <video class="feed-video" muted loop playsinline preload="metadata">
+        <source src="./video4.mp4" type="video/mp4" />
+      </video>
     </section>
 
   </div>
@@ -670,13 +645,6 @@
       soundToggle.textContent = soundEnabled ? '🔊 Sound On' : '🔇 Sound Off';
     }
 
-    function updateSwipeHint() {
-      const hints = document.querySelectorAll('.swipe-hint');
-      hints.forEach((hint, index) => {
-        hint.style.display = index === 0 ? 'block' : 'none';
-      });
-    }
-
     function playVideoAt(index) {
       videos.forEach((video, i) => {
         if (i === index) {
@@ -687,9 +655,9 @@
         } else {
           video.pause();
           video.muted = true;
+          video.currentTime = 0;
         }
       });
-      updateSwipeHint();
       updateSoundButton();
     }
 
@@ -707,74 +675,63 @@
         }
       });
 
-      activeIndex = bestIndex;
-
-      if (activeIndex < videos.length) {
+      if (bestIndex !== activeIndex) {
+        activeIndex = bestIndex;
         playVideoAt(activeIndex);
-      } else {
-        videos.forEach(v => {
-          v.pause();
-          v.muted = true;
-        });
-        updateSwipeHint();
-        updateSoundButton();
       }
     }
 
-    async function enableSound() {
+    async function enableSound(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
       soundEnabled = true;
       tapSound.classList.add('hidden');
       tapSound.style.display = 'none';
 
-      if (activeIndex < videos.length) {
+      if (videos[activeIndex]) {
         const video = videos[activeIndex];
         video.muted = false;
         video.volume = 1;
-
         try {
           await video.play();
-        } catch (e) {
-          console.log('Sound unlock failed', e);
+        } catch (err) {
+          console.log('Sound unlock failed', err);
         }
       }
 
       updateSoundButton();
     }
 
-    function disableSound() {
+    function disableSound(e) {
+      if (e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
       soundEnabled = false;
-      videos.forEach(v => v.muted = true);
+      videos.forEach(v => {
+        v.muted = true;
+      });
       tapSound.classList.remove('hidden');
       tapSound.style.display = 'flex';
       updateSoundButton();
     }
 
-    async function handleEnable(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      await enableSound();
-    }
-
-    function bindPress(el, fn) {
-      el.addEventListener('click', fn);
-      el.addEventListener('touchstart', fn, { passive: false });
-    }
-
-    bindPress(soundToggle, async (e) => {
-      e.preventDefault();
-      e.stopPropagation();
+    soundToggle.addEventListener('click', (e) => {
       if (soundEnabled) {
-        disableSound();
-        detectActiveSlide();
+        disableSound(e);
       } else {
-        await enableSound();
+        enableSound(e);
       }
     });
 
-    bindPress(tapSoundBadge, handleEnable);
+    tapSoundBadge.addEventListener('click', enableSound);
 
     videos.forEach((video, index) => {
-      bindPress(video, async () => {
+      video.addEventListener('click', async () => {
         activeIndex = index;
         if (!soundEnabled) {
           await enableSound();
@@ -787,7 +744,7 @@
     feed.addEventListener('scroll', detectActiveSlide);
 
     window.addEventListener('load', () => {
-      detectActiveSlide();
+      playVideoAt(0);
     });
   </script>
 
